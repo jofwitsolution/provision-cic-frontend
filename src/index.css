@@ -1,7 +1,7 @@
-@import "tailwindcss";
-@import "tw-animate-css";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mogra&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -127,5 +127,8 @@
   }
   body {
     @apply bg-background text-foreground font-DM-Sans;
+  }
+  .max-width {
+    @apply max-w-350 mx-auto px-4;
   }
 }
