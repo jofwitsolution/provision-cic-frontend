@@ -1,12 +1,14 @@
 import "./App.css";
-import Navbar from "./components/navigations/Navbar";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import AppRoutes from "./lib/routes.tsx";
 
 function App() {
-  return (
-    <div className="">
-      <Navbar />
-    </div>
-  );
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return <AppRoutes />;
 }
 
 export default App;

@@ -1,0 +1,14 @@
+/* Hide calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+input[type="date"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+/* Remove extra padding added by browser */
+input[type="date"] {
+  position: relative;
+}
