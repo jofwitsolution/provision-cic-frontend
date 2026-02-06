@@ -34,7 +34,7 @@ const Navbar = () => {
         </div>
         <div className="max-md:hidden">
           <Link to={"/contact"} className="w-full">
-            <Button className="w-full bg-transparent hover:bg-transparent border border-primary-100 hover:border-primary-200 text-primary-100 px-7.5 py-5 rounded-[50px]">
+            <Button className="w-full bg-transparent hover:bg-transparent border border-primary-100 hover:border-primary-200 text-primary-100 px-7.5 py-5 rounded-[50px] cursor-pointer">
               Contact
             </Button>
           </Link>

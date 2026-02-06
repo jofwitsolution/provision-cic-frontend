@@ -5,7 +5,7 @@ import instagram from "../assets/icons/mdi_instagram.png";
 
 const Footer = () => {
   return (
-    <div className="mt-2.5 flex max-h-[50vh] gap-3 bg-[#ffebde] p-4 font-DM-Sans md:mx-10 md:mt-5 md:max-h-[60vh] md:rounded-[15px] lg:max-h-[60vh] xl:max-h-[50vh]">
+    <div className="mt-2.5 flex max-h-[50vh] gap-3 bg-[#ffebde] p-4 font-DM-Sans md:mx-10 md:mt-5 md:max-h-[60vh] md:rounded-t-[15px] lg:max-h-[60vh] xl:max-h-[50vh]">
       <div className="w-1/2">
         <h2 className="mx-2.5 mb-1.5 mt-0">ProVison CIC</h2>
         <p className="mx-2.5 my-0 text-xs leading-relaxed md:text-sm lg:text-base xl:text-lg">
@@ -13,7 +13,7 @@ const Footer = () => {
           evident in our dedication to providing safe, high-quality homes and
           supporting people in their journey toward greater independence.
         </p>
-        <img src={companylogo} alt="" className="mx-2.5 my-2.5 max-w-[120px]" />
+        <img src={companylogo} alt="" className="mx-2.5 my-2.5 max-w-30" />
       </div>
 
       <hr className="h-auto w-px border-none bg-[#e6c1a9]" />
