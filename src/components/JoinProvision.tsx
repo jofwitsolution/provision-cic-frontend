@@ -17,7 +17,7 @@ const JoinProvision = () => {
           </button>
         </Link>
         <Link to="/referrals">
-          <button className="rounded-[7px] border-[0.32px] border-[#FE6D6D] bg-[#FD8282] px-[13px] py-[6.5px] text-[5.85px] text-[#FFFFFF] md:rounded-[50px] md:px-7 md:py-3 md:text-[18px]">
+          <button className="rounded-[7px] border-[0.32px] border-primary-100  bg-primary-100 px-[13px] py-[6.5px] text-[5.85px] text-[#FFFFFF] md:rounded-[50px] md:px-7 md:py-3 md:text-[18px]">
             Make a referral
           </button>
         </Link>

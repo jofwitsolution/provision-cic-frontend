@@ -23,7 +23,7 @@ const EventHero = () => {
           </p>
           <div className="flex gap-2 justify-center !mt-2.5">
             <Link to="/events">
-              <button className="   h-[33px] w-[93px] px-[17px] py[8px]   bg-white text-[#934713]  rounded-md text-[9.53px] md:h-[85px] md:w-[241px] md:text-[25px]  md:px-[45px] d:py-[22.5px]  ">
+              <button className=" h-[33px] w-[93px] px-[17px] py-[8px] bg-white text-[#934713]  rounded-md text-[9.53px] md:h-[85px] md:w-[241px] md:text-[21px]  md:px-[17px] md:py-[20px]">
                 Check Latest Events
               </button>
             </Link>

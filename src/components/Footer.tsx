@@ -2,6 +2,7 @@ import companylogo from "../assets/primary-logo.png";
 import linkedin from "../assets/icons/mdi_linkedin.png";
 import twitter from "../assets/icons/prime_twitter.png";
 import instagram from "../assets/icons/mdi_instagram.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -30,6 +31,18 @@ const Footer = () => {
           <button className="w-20 cursor-pointer rounded-[20px] border-none bg-[#934713] px-2.5 py-1.5 text-xs text-white md:px-[17px] md:py-[9px] md:text-[13px]">
             Suscribe
           </button>
+        </div>
+
+        <div className="mt-[10px]">
+          <Link to="/faq">
+            <p className="text-[#934713] ">Faqs</p>
+          </Link>
+          <Link to="/termsandcondition">
+            <p className="text-[#934713] ">Terms & Conditions</p>
+          </Link>
+          <Link to="/privacy-policy">
+            <p className="text-[#934713] ">Privacy Policy</p>
+          </Link>
         </div>
 
         <div className="mt-6 flex gap-2.5">
