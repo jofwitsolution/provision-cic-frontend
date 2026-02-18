@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, type Variants, AnimatePresence } from "framer-motion";
 
 const items = [
