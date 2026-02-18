@@ -1,240 +1,759 @@
-import icon2 from "../../assets/icons/solar_calendar-linear.png";
-import icon3 from "../../assets/icons/Icon (1).png";
-import icon1 from "../../assets/icons/Icon.png";
+import { discoveryModes } from "@/lib/data";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckCircle, AlertCircle, Phone, Mail, User } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 
-import "../../styles/ref.css";
+const ReferSomeoneSchema = z.object({
+  clientFullName: z.string().nonempty("Full name is required."),
+  clientBirthDate: z.string().nonempty("Birth date is required."),
+  clientGender: z.string().nonempty("Gender is required."),
+  clientEmail: z
+    .string()
+    .nonempty("Client email is required.")
+    .email("Please enter a valid email address."),
+  clientAddLineOne: z.string().optional(),
+  clientAddLineTwo: z.string().optional(),
+  clientCounty: z.string().optional(),
+  clientCity: z.string().optional(),
+  clientPostCode: z.string().optional(),
+  clientPhone: z.string().optional(),
+  fixedAddress: z
+    .string()
+    .nonempty("Please select if client has fixed address."),
+  supportReason: z
+    .string()
+    .nonempty("Support reason is required.")
+    .min(10, "Please provide at least 10 characters."),
+  assistance: z.string().optional(),
+  clientContactModes: z
+    .array(z.string())
+    .nonempty("Please select at least one contact method."),
+  referralFullName: z.string().nonempty("Your full name is required."),
+  referralRole: z.string().optional(),
+  agencyOrProvider: z.string().optional(),
+  referralPhone: z.string().optional(),
+  referralEmail: z
+    .string()
+    .nonempty("Your email is required.")
+    .email("Please enter a valid email address."),
+  discoveryMode: z.string().nonempty("Please select how you heard about us."),
+});
+
 const ReferralsForm = () => {
-  return (
-    <div className="min-h-screen !m-auto max-w-[350px] md:max-w-[800px] bg-[#F5F6F7] flex justify-center !py-[40px] !px-4">
-      <div className="w-full bg-white border-[#1b1a1a] rounded-[6px] !px-[20px] !py-[24px]">
-        {/* Title */}
-        <h2 className="text-[18px] font-medium !mb-[20px]">Referral Form</h2>
-        {/* Section 1 */}
-        <p className="text-[12px] font-medium !mb-[10px]">
-          Your Client's Details
-        </p>
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(ReferSomeoneSchema),
+    mode: "onBlur",
+  });
 
-        {/* Full Name */}
-        <div className="!mb-[16px]">
-          <label className="text-[12px] block !mb-[4px]">Full Name</label>
-          <div className="relative  w-full ">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300  !px-[10px] outline-none !py-[10px]"
-            />
+  const [successMessage, setSuccessMessage] = useState(false);
+  const fixedAddress = watch("fixedAddress");
 
-            <img
-              src={icon1}
-              alt=""
-              className="absolute right-[12px] top-3/5 -translate-y-1/2 w-[25px] h-[25px]"
-            />
-          </div>
-        </div>
+  const submitForm = async (data) => {
+    console.log("Form Data:", data);
+    try {
+      // await sendReferralData(data);
+      // Mock submission for now
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      reset();
+      setSuccessMessage(true);
+      toast.success("Your referral has been submitted successfully!");
+      setTimeout(() => setSuccessMessage(false), 5000);
+    } catch (error) {
+      if (error?.response?.data?.msg) {
+        toast.error(error.response.data.msg);
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    }
+  };
 
-        {/* Date of Birth */}
-        <div className="!mb-[16px]">
-          <label className="text-[12px] block !mb-[4px]">Date Of Birth</label>
-          <div className="relative w-full">
-            <input
-              type="date"
-              placeholder=""
-              className="w-full !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300  !px-[10px] outline-none !py-[10px]"
-            />
-            <img
-              src={icon2}
-              alt=""
-              className="absolute pointer-events-none right-[12px] top-3/5 -translate-y-1/2 w-[25px] h-[25px]"
-            />
-          </div>
-        </div>
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-        {/* Sex at Birth */}
-        <div className="!mb-[20px]">
-          <label className="text-[12px] block !mb-[4px]">Sex at Birth</label>
-          <select className="w-full  !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]">
-            <option>Female</option>
-            <option>Male</option>
-            <option>Other</option>
-          </select>
-        </div>
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
 
-        {/* client  Info */}
+  const sectionVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
-        <p className="text-[12px] font-medium !mb-[10px]">
-          Your client's contact details
-        </p>
-        <p className="text-[12px] font-small !mb-[10px]">
-          In this section please answer all questions on behalf of the person
-          you are referring.
-        </p>
+  const inputVariants: Variants = {
+    focus: { scale: 1.01, boxShadow: "0 0 0 3px rgba(147, 71, 19, 0.1)" },
+  };
 
-        <label className="text-[12px] font-medium !mb-[6px]">
-          Does your client have a fixed address?
-        </label>
-
-        <select className="w-full   border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300  !px-[10px] outline-none !py-[10px]">
-          <option>Yes</option>
-          <option>No</option>
-        </select>
-
-        {/* Support Needs */}
-        <label className="text-[12px] font-medium !mt-[12px] !mb-[6px]">
-          Phone Number
-        </label>
+  const FormInput = ({
+    label,
+    id,
+    type = "text",
+    error,
+    required = false,
+    icon: Icon,
+    ...props
+  }) => (
+    <div className="mb-5">
+      <label
+        htmlFor={id}
+        className="block text-sm font-semibold text-gray-800 mb-2"
+      >
+        {label}
+        {required && <span className="text-[#934713] ml-1">*</span>}
+      </label>
+      <div className="relative">
+        {Icon && (
+          <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#934713] opacity-60 pointer-events-none" />
+        )}
         <input
-          type="text"
-          placeholder="Phone Number"
-          className="w-full !mt-[5px] !mb-[20px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300  !px-[10px] outline-none !py-[10px]"
+          type={type}
+          id={id}
+          className={`w-full px-4 py-3 ${Icon ? "pl-12" : "pl-4"} rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 placeholder:text-gray-400 ${
+            error
+              ? "border-red-300 focus:border-red-500 bg-red-50/30"
+              : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
+          }`}
+          {...props}
         />
-
-        {/* email */}
-        <label className="text-[14px] !mt-[20px]">Email Address</label>
-        <div className="relative ">
-          <input
-            type="text"
-            placeholder="Enter Your email address"
-            className="w-full !mt-[5px ] border shadow-[0_0_6px_rgba(0,0,0,0.5)]  rounded-[6px] border-gray-300 placeholder:!px-[10px] outline-none !py-[10px]"
-          />
-          <img
-            src={icon3}
-            alt=""
-            className="absolute right-[12px] top-3/5 -translate-y-1/2 w-[20px] h-[20px]"
-          />
-        </div>
-
-        {/* Sex at Birth */}
-
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[12px] block !mb-[4px]">Sex at Birth</label>
-          <select className="w-full  !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]">
-            <option>Female</option>
-            <option>Male</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        {/* how we can support them */}
-        <p className="text-[16px] font-medium !mb-[10px]">
-          How we can support them
-        </p>
-
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[12px] block !mb-[4px]">
-            {" "}
-            Description of support needs and reason for referral *{" "}
-          </label>
-          <textarea
-            className=" w-full !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]"
-            placeholder="Type here"
-          ></textarea>
-        </div>
-
-        {/* any assistance */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[12px] block !mb-[4px]">
-            {" "}
-            Any assistance needed (eg. translation or access needs){" "}
-          </label>
-          <textarea
-            className=" w-full !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]"
-            placeholder="Type here"
-          ></textarea>
-        </div>
-
-        {/* how to contact */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[12px] block !mb-[4px]">
-            How would your client like us to contact them? *
-          </label>
-          <select className="w-full  !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]">
-            <option>Emails</option>
-            <option>Phone</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        {/* your details */}
-        <p className="text-[12px] font-medium !mb-[10px]">Your Details</p>
-        <p className="text-[12px] font-small !mb-[10px]">
-          In this section please answer all questions on behalf of the person
-          you are referring.
-        </p>
-
-        {/* Full Name */}
-        <div className="!mb-[16px]">
-          <label className="text-[12px] block !mb-[4px]">Full Name</label>
-          <div className="relative  w-full ">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300  !px-[10px] outline-none !py-[10px]"
-            />
-            <img
-              src={icon1}
-              alt=""
-              className="absolute right-[12px] top-3/5 -translate-y-1/2 w-[25px] h-[25px]"
-            />
-          </div>
-        </div>
-
-        {/* role */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[14px] !mt-[20px]">Role</label>
-          <input
-            type="tel"
-            placeholder="Role"
-            className="w-full !mt-[5px ] border shadow-[0_0_6px_rgba(0,0,0,0.5)]  rounded-[6px] border-gray-300 placeholder:!px-[10px] outline-none !py-[10px]"
-          />
-        </div>
-
-        {/* Phone Number */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[14px] !mt-[20px]">Phone Number</label>
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="w-full !mt-[5px ] border shadow-[0_0_6px_rgba(0,0,0,0.5)]  rounded-[6px] border-gray-300 placeholder:!px-[10px] outline-none !py-[10px]"
-          />
-        </div>
-
-        {/* email address */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[14px] !mt-[20px]">Email Address</label>
-          <div className="relative ">
-            <input
-              type="email"
-              placeholder="Enter Your email address"
-              className="w-full !mt-[5px ] border shadow-[0_0_6px_rgba(0,0,0,0.5)]  rounded-[6px] border-gray-300 placeholder:!px-[10px] outline-none !py-[10px]"
-            />
-            <img
-              src={icon3}
-              alt=""
-              className="absolute right-[12px] top-3/5 -translate-y-1/2 w-[20px] h-[20px]"
-            />
-          </div>
-        </div>
-
-        {/* how you heard */}
-        <div className="!mb-[20px] !mt-[20px]">
-          <label className="text-[12px] block !mb-[4px]">
-            How did you hear about our service? *
-          </label>
-          <select className="w-full  !mt-[5px]  border shadow-[0_0_6px_rgba(0,0,0,0.5)] rounded-[6px] border-gray-300 !px-[10px] outline-none !py-[10px]">
-            <option>Social Media</option>
-            <option>Phone</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        {/* Button */}
-        <div className=" w-full flex justify-end  ">
-          <button className="w-[130px] h-[56px]  bg-[#934713] text-white !py-[5px]  text-[17px]  !mt-[5px]   rounded-[10px]  outline-none ">
-            Continue
-          </button>
-        </div>
       </div>
+      <AnimatePresence>
+        {error?.message && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
+          >
+            <AlertCircle className="w-4 h-4" />
+            {error.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
+  );
+
+  const FormSelect = ({
+    label,
+    id,
+    error,
+    required = false,
+    children,
+    ...props
+  }) => (
+    <div className="mb-5">
+      <label
+        htmlFor={id}
+        className="block text-sm font-semibold text-gray-800 mb-2"
+      >
+        {label}
+        {required && <span className="text-[#934713] ml-1">*</span>}
+      </label>
+      <select
+        id={id}
+        className={`w-full px-4 py-3 rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 cursor-pointer ${
+          error
+            ? "border-red-300 focus:border-red-500 bg-red-50/30"
+            : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
+        }`}
+        {...props}
+      >
+        {children}
+      </select>
+      <AnimatePresence>
+        {error?.message && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
+          >
+            <AlertCircle className="w-4 h-4" />
+            {error.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
+  const FormTextarea = ({ label, id, error, required = false, ...props }) => (
+    <div className="mb-5">
+      <label
+        htmlFor={id}
+        className="block text-sm font-semibold text-gray-800 mb-2"
+      >
+        {label}
+        {required && <span className="text-[#934713] ml-1">*</span>}
+      </label>
+      <textarea
+        id={id}
+        className={`w-full px-4 py-3 rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 placeholder:text-gray-400 resize-none ${
+          error
+            ? "border-red-300 focus:border-red-500 bg-red-50/30"
+            : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
+        }`}
+        {...props}
+      />
+      <AnimatePresence>
+        {error?.message && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
+          >
+            <AlertCircle className="w-4 h-4" />
+            {error.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
+  const RadioGroup = ({ label, name, options, error, required = false }) => (
+    <div className="mb-5">
+      <label className="block text-sm font-semibold text-gray-800 mb-3">
+        {label}
+        {required && <span className="text-[#934713] ml-1">*</span>}
+      </label>
+      <div className="space-y-2.5">
+        {options.map((option) => (
+          <motion.label
+            key={option.value}
+            className="flex items-center cursor-pointer p-3 rounded-xl border-2 border-[#e4c9b2] hover:border-[#934713] hover:bg-[#f9f3ef] transition-all duration-200"
+            whileHover={{ scale: 1.01 }}
+          >
+            <input
+              type="radio"
+              value={option.value}
+              className="w-5 h-5 accent-[#934713] cursor-pointer"
+              {...register(name)}
+            />
+            <span className="ml-3 font-medium text-gray-700">
+              {option.label}
+            </span>
+          </motion.label>
+        ))}
+      </div>
+      <AnimatePresence>
+        {error?.message && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
+          >
+            <AlertCircle className="w-4 h-4" />
+            {error.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
+  const CheckboxGroup = ({ label, name, options, error, required = false }) => (
+    <div className="mb-5">
+      <label className="block text-sm font-semibold text-gray-800 mb-3">
+        {label}
+        {required && <span className="text-[#934713] ml-1">*</span>}
+      </label>
+      <div className="space-y-2.5">
+        {options.map((option) => (
+          <motion.label
+            key={option}
+            className="flex items-center cursor-pointer p-3 rounded-xl border-2 border-[#e4c9b2] hover:border-[#934713] hover:bg-[#f9f3ef] transition-all duration-200"
+            whileHover={{ scale: 1.01 }}
+          >
+            <input
+              type="checkbox"
+              value={option}
+              className="w-5 h-5 accent-[#934713] cursor-pointer rounded"
+              {...register(name)}
+            />
+            <span className="ml-3 font-medium text-gray-700">{option}</span>
+          </motion.label>
+        ))}
+      </div>
+      <AnimatePresence>
+        {error?.message && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
+          >
+            <AlertCircle className="w-4 h-4" />
+            {error.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
+  return (
+    <motion.div
+      className="min-h-screen bg-gradient-to-br from-[#f9f3ef] via-white to-[#f6e4d5] py-12 px-4 sm:px-6 lg:px-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-3xl mx-auto">
+        {/* Success Message */}
+        <AnimatePresence>
+          {successMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
+            >
+              <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-emerald-800">Success!</p>
+                <p className="text-emerald-700 text-sm">
+                  Your referral has been submitted successfully.
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <form onSubmit={handleSubmit(submitForm)}>
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-12"
+          >
+            <h1 className="text-4xl font-bold text-gray-900 mb-3 font-mogra">
+              Refer Someone
+            </h1>
+            <p className="text-lg text-gray-600">
+              Complete this form to refer someone to ProVision's support
+              services.
+            </p>
+          </motion.div>
+
+          {/* Section 1: Client Details */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 md:p-10 mb-8 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-2 border-[#edd8c1]"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div
+              className="flex items-center gap-3 mb-8"
+              variants={itemVariants}
+            >
+              <User className="w-8 h-8 text-[#934713]" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Client's Details
+              </h2>
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+            >
+              <FormInput
+                label="Full Name"
+                id="clientFullName"
+                error={errors.clientFullName}
+                required
+                placeholder="Enter full name"
+                {...register("clientFullName")}
+              />
+
+              <FormInput
+                label="Date of Birth"
+                id="clientBirthDate"
+                type="date"
+                error={errors.clientBirthDate}
+                required
+                {...register("clientBirthDate")}
+              />
+
+              <RadioGroup
+                label="Sex at Birth"
+                name="clientGender"
+                error={errors.clientGender}
+                required
+                options={[
+                  { value: "female", label: "Female" },
+                  { value: "male", label: "Male" },
+                  { value: "other", label: "Prefer not to say" },
+                ]}
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Section 2: Contact Details */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 md:p-10 mb-8 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-2 border-[#edd8c1]"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div
+              className="flex items-center gap-3 mb-6"
+              variants={itemVariants}
+            >
+              <Phone className="w-8 h-8 text-[#934713]" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Contact Details
+              </h2>
+            </motion.div>
+
+            <motion.p
+              variants={itemVariants}
+              className="text-gray-600 mb-6 text-sm italic"
+            >
+              Please answer all questions on behalf of the person you are
+              referring.
+            </motion.p>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+            >
+              <RadioGroup
+                label="Does your client have a fixed address?"
+                name="fixedAddress"
+                options={[
+                  { value: "yes", label: "Yes" },
+                  { value: "no", label: "No" },
+                ]}
+              />
+
+              <AnimatePresence>
+                {fixedAddress === "yes" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-5 mb-5 p-5 bg-[#f9f3ef] rounded-2xl border-2 border-[#e4c9b2]"
+                  >
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
+                        Address Line 1
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Street address"
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                        {...register("clientAddLineOne")}
+                      />
+                    </div>
+
+                    <div variants={itemVariants}>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
+                        Address Line 2
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Apartment, suite, etc (optional)"
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                        {...register("clientAddLineTwo")}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div variants={itemVariants}>
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
+                          City
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="City"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          {...register("clientCity")}
+                        />
+                      </div>
+
+                      <div variants={itemVariants}>
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
+                          County/Region
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="County"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          {...register("clientCounty")}
+                        />
+                      </div>
+
+                      <div variants={itemVariants}>
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
+                          Postcode
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Postcode"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          {...register("clientPostCode")}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <FormInput
+                label="Phone Number"
+                id="clientPhone"
+                type="tel"
+                placeholder="e.g. +44 (0)123 456 7890"
+                icon={Phone}
+                {...register("clientPhone")}
+              />
+
+              <FormInput
+                label="Email Address"
+                id="clientEmail"
+                type="email"
+                error={errors.clientEmail}
+                required
+                placeholder="name@example.com"
+                icon={Mail}
+                {...register("clientEmail")}
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Section 3: Support Needs */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 md:p-10 mb-8 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-2 border-[#edd8c1]"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.h2
+              className="text-2xl font-bold text-gray-900 mb-8"
+              variants={itemVariants}
+            >
+              Support Needs
+            </motion.h2>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+            >
+              <FormTextarea
+                label="Description of Support Needs and Reason for Referral"
+                id="supportReason"
+                error={errors.supportReason}
+                required
+                placeholder="Please describe what support the client needs and why you are referring them..."
+                rows={5}
+                {...register("supportReason")}
+              />
+
+              <FormTextarea
+                label="Any Assistance Needed"
+                id="assistance"
+                placeholder="e.g. translation services, accessibility requirements..."
+                rows={4}
+                {...register("assistance")}
+              />
+
+              <CheckboxGroup
+                label="How would your client like us to contact them?"
+                name="clientContactModes"
+                error={errors.clientContactModes}
+                required
+                options={["Letter", "Email", "Phone", "Home visit"]}
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Section 4: Referrer Details */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 md:p-10 mb-8 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-2 border-[#edd8c1]"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div
+              className="flex items-center gap-3 mb-8"
+              variants={itemVariants}
+            >
+              <User className="w-8 h-8 text-[#934713]" />
+              <h2 className="text-2xl font-bold text-gray-900">Your Details</h2>
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+            >
+              <FormInput
+                label="Full Name"
+                id="referralFullName"
+                error={errors.referralFullName}
+                required
+                placeholder="Enter your full name"
+                {...register("referralFullName")}
+              />
+
+              <FormInput
+                label="Role"
+                id="referralRole"
+                placeholder="Your job title or role"
+                {...register("referralRole")}
+              />
+
+              <FormInput
+                label="Agency or Provider"
+                id="agencyOrProvider"
+                placeholder="Your organization"
+                {...register("agencyOrProvider")}
+              />
+
+              <FormInput
+                label="Phone Number"
+                id="referralPhone"
+                type="tel"
+                placeholder="e.g. +44 (0)123 456 7890"
+                icon={Phone}
+                {...register("referralPhone")}
+              />
+
+              <FormInput
+                label="Email Address"
+                id="referralEmail"
+                type="email"
+                error={errors.referralEmail}
+                required
+                placeholder="name@example.com"
+                icon={Mail}
+                {...register("referralEmail")}
+              />
+
+              <FormSelect
+                label="How did you hear about our service?"
+                id="discoveryMode"
+                error={errors.discoveryMode}
+                required
+                {...register("discoveryMode")}
+              >
+                {discoveryModes.map((item) => (
+                  <option key={item.label} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+              </FormSelect>
+            </motion.div>
+          </motion.div>
+
+          {/* Submit Button Section */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.button
+              type="submit"
+              disabled={isSubmitting}
+              className={`px-8 py-4 rounded-2xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-3 min-w-[200px] ${
+                isSubmitting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#934713] hover:bg-[#7a3f14] shadow-[0_12px_24px_rgba(147,71,19,0.3)]"
+              }`}
+              whileHover={
+                !isSubmitting
+                  ? { y: -2, boxShadow: "0 16px 32px rgba(147,71,19,0.4)" }
+                  : {}
+              }
+              whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+            >
+              {isSubmitting ? (
+                <>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
+                  </motion.div>
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="w-5 h-5" />
+                  Submit Referral
+                </>
+              )}
+            </motion.button>
+
+            <motion.button
+              type="reset"
+              className="px-8 py-4 rounded-2xl font-semibold text-[#934713] bg-transparent border-2 border-[#934713] hover:bg-[#f9f3ef] transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                reset();
+              }}
+            >
+              Clear Form
+            </motion.button>
+          </motion.div>
+
+          {/* Info Banner */}
+          <motion.div
+            className="p-6 rounded-2xl bg-[#f9f3ef] border-2 border-[#e4c9b2]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold text-[#934713]">Thank you</span>{" "}
+              for completing this referral form. We will review the information
+              and contact the client within 5 working days.
+            </p>
+          </motion.div>
+        </form>
+      </div>
+    </motion.div>
   );
 };
 

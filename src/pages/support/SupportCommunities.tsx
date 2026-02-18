@@ -25,7 +25,7 @@ const supportcomm = [
 
 const SupportCommunities = () => {
   return (
-    <div className="flex !mt-[30px] !m-auto  flex-col  max-w-[370px] max-h-[1556px] md:max-w-[770px] lg:max-w-[1200px] md:!mt-[50px]">
+    <section className="flex !mt-[30px] !m-auto px-4 flex-col  max-w-[370px] max-h-[1556px] md:max-w-[770px] lg:max-w-[1200px] md:!mt-[50px]">
       {/*  */}
       <div className="flex flex-col gap-[15px] !mb-[20px] text-center max-h-[144px]">
         {/* h2 */}
@@ -44,7 +44,7 @@ const SupportCommunities = () => {
           //
           <div
             key={index}
-            className={`  rounded-[10px]  bg-[#C6C5C5] md:w-full ${index === 2 ? "md:col-span-2 " : ""} `}
+            className={`  rounded-[10px]  bg-[#f2d9c2] md:w-full ${index === 2 ? "md:col-span-2 " : ""} `}
           >
             {/* image */}
             <img
@@ -62,7 +62,7 @@ const SupportCommunities = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

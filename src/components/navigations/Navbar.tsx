@@ -32,10 +32,15 @@ const Navbar = () => {
             );
           })}
         </div>
-        <div className="max-md:hidden">
+        <div className="max-md:hidden flex gap-4 items-center">
           <Link to={"/contact"} className="w-full">
             <Button className="w-full bg-transparent hover:bg-transparent border border-primary-100 hover:border-primary-200 text-primary-100 px-7.5 py-5 rounded-[50px] cursor-pointer">
               Contact
+            </Button>
+          </Link>
+          <Link to={"/referrals"} className="w-full">
+            <Button className="w-full bg-primary-100 hover:bg-primary-200 text-background px-7.5 py-5 rounded-[50px] cursor-pointer">
+              Refer Someone
             </Button>
           </Link>
         </div>

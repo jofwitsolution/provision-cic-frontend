@@ -1,67 +1,124 @@
 import React, { useState } from "react";
+import { motion, type Variants, AnimatePresence } from "framer-motion";
 
 const items = [
   {
     title: "Personalized Support Plans",
     content:
-      "We tailor support plans to each individual's unique needs and aspirations.",
+      "We tailor support plans to each individual's unique needs and aspirations, ensuring your journey is truly your own.",
+    icon: "🎯",
   },
   {
     title: "Expert Financial Guidance",
     content:
-      "Our team provides expert financial guidance to promote independence.",
+      "Our team provides expert financial guidance to promote independence and help you achieve your goals.",
+    icon: "💼",
   },
   {
     title: "Access to Specialised Services",
-    content: "We connect individuals with trusted specialist services.",
+    content:
+      "We connect you with trusted specialist services whenever you need them.",
+    icon: "🤝",
   },
   {
     title: "Pathway to Independence",
-    content: "We empower individuals on their journey to independent living.",
+    content:
+      "We empower individuals on their journey to independent living with consistent, compassionate support.",
+    icon: "🌟",
   },
 ];
 
 const WhyChooseUs = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
+  const container: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.08 },
+    },
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
   return (
-    <section className="mx-auto max-w-[1272px] px-4 py-6 pt-[50px] font-['DM_Sans',sans-serif] md:max-w-[700px]">
-      <h2 className="text-center text-base font-bold md:text-4xl">
-        Why Choose Us
-      </h2>
-      <h4 className="mb-3 text-center font-normal">
-        The <b>"ProVision"</b> Difference
-      </h4>
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f9f3ef_60%)] py-14 font-['DM_Sans',sans-serif] md:py-20">
+      <div className="pointer-events-none absolute -left-20 top-20 h-56 w-56 rounded-full bg-[#f6e4d5]/70 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-[#f2d9c2]/60 blur-3xl" />
 
-      <p className="mb-5 text-center text-sm">
-        Our personalized care, commitment to individual goals, and a clear path
-        to independent living set us apart. With us, you're not just a resident;
-        you're on a journey towards self-sufficiency and well-being.
-      </p>
+      <motion.div
+        className="mx-auto w-full max-w-300 px-4"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <motion.div
+          variants={item}
+          className="mx-auto mb-12 max-w-190 text-center"
+        >
+          <span className="inline-flex items-center rounded-full border border-[#e4c9b2] bg-[#f7ede3] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a3f14]">
+            The ProVision Difference
+          </span>
+          <h2 className="mt-4 text-2xl font-semibold text-[#3f2b1d] md:text-4xl">
+            Why Choose Us
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#3f2b1d]/80 md:text-base">
+            Our personalized care, commitment to your goals, and proven pathway
+            to independence set us apart. You're not just a resident — you're on
+            a journey towards self-sufficiency and well-being.
+          </p>
+        </motion.div>
 
-      <div>
-        {items.map((item, index) => (
-          <div className="mb-[5px]" key={index}>
-            <button
-              className={`flex w-full justify-between rounded-none border border-[#e9e7e7] px-3.5 py-3.5 text-left text-lg font-medium ${
-                openIndex === index
-                  ? "bg-[#934713] text-white"
-                  : "bg-[#f8f8f8] text-black"
-              }`}
-              onClick={() => setOpenIndex(index)}
-            >
-              {item.title}
-              <span>{openIndex === index ? "▲" : "▼"}</span>
-            </button>
+        <motion.div variants={item} className="grid gap-3 md:grid-cols-2">
+          {items.map((accordion, index) => (
+            <div key={index} className="flex flex-col">
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
+                className={`flex items-center justify-between gap-3 rounded-2xl border px-5 py-4 text-left transition md:px-6 md:py-5 ${
+                  openIndex === index
+                    ? "border-primary-100 bg-primary-100 text-white shadow-[0_18px_35px_rgba(147,71,19,0.25)]"
+                    : "border-[#edd8c1] bg-white text-[#3f2b1d] hover:border-primary-100/50 hover:shadow-[0_12px_24px_rgba(147,71,19,0.12)]"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{accordion.icon}</span>
+                  <h3 className="font-semibold">{accordion.title}</h3>
+                </div>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="shrink-0 text-lg"
+                >
+                  ▼
+                </motion.div>
+              </button>
 
-            {openIndex === index && (
-              <div className="m-[2px] bg-[#fafafa] p-3.5 shadow-[0_8px_8px_-4px_rgba(0,0,0,0.1)]">
-                <p>{item.content}</p>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="rounded-b-2xl border border-t-0 border-[#edd8c1] bg-[#f9f3ef] px-5 py-4 md:px-6 md:py-5">
+                      <p className="leading-7 text-[#2e2a28]">
+                        {accordion.content}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

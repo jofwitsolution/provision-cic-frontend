@@ -1,7 +1,7 @@
 export const navbarRoutes = [
   { label: "About", route: "/about" },
-  { label: "Accomodation", route: "/accomodation" },
+  { label: "Accommodation", route: "/accommodation" },
   { label: "Support", route: "/support" },
   { label: "Events", route: "/events" },
-  { label: "Refrrals", route: "/referrals" },
+  { label: "Referrals", route: "/referrals" },
 ];

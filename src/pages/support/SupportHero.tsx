@@ -1,37 +1,68 @@
 import { Link } from "react-router-dom";
 import supportworker from "../../assets/images/support-worker-1-f0f32ffb 1 (1).png";
+import { motion } from "framer-motion";
 
 const SupportHero = () => {
   return (
-    <div className="relative w-full h-[293px]  md:!h-[85vh]  ">
+    <section className="relative isolate flex min-h-80 items-center justify-center overflow-hidden bg-black/20 md:min-h-[80vh]">
       <img
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         src={supportworker}
-        alt=""
+        alt="Provision support worker"
       />
-      <div className="absolute inset-0 bg-[#934713]/60 "></div>
-      <div className="relative  z-1 flex  items-center justify-center h-full px-4">
-        <div className=" max-w-[370px]  md:max-w-[1000px] text-white text-center ">
-          <h2 className=" font-Mogra  text-[21px] !mb-[5px] md:text-[60px]">
-            {" "}
-            Support: Empowering Your Journey
-          </h2>{" "}
-          <p className=" font-[DM Sans] text-[10px] md:text-[25px]">
-            We are dedicated to enhancing individuals' capacity to maintain a
-            tenancy and preparing them for self-sufficient living. Our
-            comprehensive support services are designed to guide you through
-            this transformative journey, empowering you every step of the way.
-          </p>
-          <div className="flex gap-2 justify-center !mt-2.5">
-            <Link to="/contact">
-              <button className="   h-[33px] w-[93px] px-[17px] py[8px]   bg-white text-[#934713]  rounded-md text-[9.53px] md:h-[85px] md:w-[241px] md:text-[21px]  md:px-[45px] d:py-[22.5px]  ">
-                Get in Touch
-              </button>
-            </Link>
-          </div>
+      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-[#421e0c]/70 to-[#120703]/90" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_55%)]" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center text-white md:px-8"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="font-Mogra text-3xl leading-tight md:text-6xl"
+        >
+          Support: Empowering Your Journey
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="font-['DM Sans'] text-sm leading-relaxed text-white/90 md:text-xl"
+        >
+          We are dedicated to enhancing individuals' capacity to maintain a
+          tenancy and preparing them for self-sufficient living. Our
+          comprehensive support services are designed to guide you through this
+          transformative journey, empowering you every step of the way.
+        </motion.p>
+
+        <div className="max-sm:hidden flex flex-wrap justify-center gap-3 text-xs md:text-base">
+          <Link to="/contact">
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-pointer rounded-2xl bg-white/90 px-6 py-2 font-semibold text-primary-100 shadow-[0_15px_30px_rgba(0,0,0,0.25)] md:px-10 md:py-4"
+            >
+              Get in Touch
+            </motion.button>
+          </Link>
+          <Link to="/referrals">
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-pointer rounded-2xl border border-white/60 px-6 py-2 font-semibold text-white md:px-10 md:py-4"
+            >
+              Refer Someone
+            </motion.button>
+          </Link>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 };
 

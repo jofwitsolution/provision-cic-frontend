@@ -1,28 +1,77 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const JoinProvision = () => {
   return (
-    <div className="m-auto mt-[30px] max-h-[113.73px] max-w-[400px] rounded-[9.75px] bg-[#FFEBDE] py-5 md:max-h-[350px] md:max-w-[1231px]">
-      <h2 className="text-center text-[11.37px] md:text-[30px]">
-        Join ProVision CIC Today!
-      </h2>
-      <p className="m-auto max-h-[26px] max-w-[327.66px] text-center text-[8.12px] md:max-h-[80px] md:max-w-[1009px] md:text-center md:text-[20px]">
-        Join ProVision Support and experience living that's about more than just
-        a place; it's about community, support, and growth. Welcome home!
-      </p>
-      <div className="m-auto mt-[10px] flex w-fit gap-[10px]">
-        <Link to="/contact">
-          <button className="rounded-[7px] border-[0.32px] border-[#D0D0D0] bg-[#FFFFFF] px-[13px] py-[6.5px] text-[5.85px] text-[#000000] md:rounded-[50px] md:px-7 md:py-3 md:text-[18px]">
-            Get in touch
-          </button>
-        </Link>
-        <Link to="/referrals">
-          <button className="rounded-[7px] border-[0.32px] border-primary-100  bg-primary-100 px-[13px] py-[6.5px] text-[5.85px] text-[#FFFFFF] md:rounded-[50px] md:px-7 md:py-3 md:text-[18px]">
-            Make a referral
-          </button>
-        </Link>
-      </div>
-    </div>
+    <section className="relative overflow-hidden px-4 py-12 font-['DM Sans',sans-serif] md:py-20">
+      {/* Decorative blur backgrounds */}
+      <div className="pointer-events-none absolute -left-20 top-0 h-56 w-56 rounded-full bg-[#f6e4d5]/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 -bottom-10 h-64 w-64 rounded-full bg-[#f2d9c2]/30 blur-3xl" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 mx-auto w-full max-w-275 overflow-hidden rounded-4xl border border-[#edd8c1] bg-linear-to-r from-[#fdf5f0] to-[#f9ebe3] px-6 py-12 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] md:px-12 md:py-16"
+      >
+        {/* Directional gradient overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-primary-100/5 via-transparent to-transparent" />
+
+        <motion.div
+          className="relative z-20 space-y-6"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          {/* Main heading */}
+          <div>
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="inline-flex items-center rounded-full border border-[#e4c9b2] bg-[#f7ede3] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#7a3f14]"
+            >
+              Join Us
+            </motion.span>
+            <h2 className="mt-4 text-2xl font-bold text-[#3f2b1d] md:text-4xl">
+              Join ProVision CIC Today!
+            </h2>
+          </div>
+
+          {/* Subheading */}
+          <p className="mx-auto max-w-175 text-sm leading-8 text-[#2e2a28]/85 md:text-lg">
+            Experience supported living that's about more than just a place—it's
+            about community, meaningful support, and your journey to
+            independence. Welcome home!
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap justify-center gap-3 pt-4">
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="cursor-pointer rounded-2xl border border-[#edd8c1] bg-white px-6 py-2.5 font-semibold text-[#3f2b1d] shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition hover:border-primary-100 hover:shadow-[0_16px_32px_rgba(147,71,19,0.15)] md:px-8 md:py-3.5 md:text-lg"
+              >
+                Get in Touch
+              </motion.button>
+            </Link>
+            <Link to="/referrals">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="cursor-pointer rounded-2xl bg-primary-100 px-6 py-2.5 font-semibold text-white shadow-[0_12px_28px_rgba(147,71,19,0.3)] transition hover:shadow-[0_18px_40px_rgba(147,71,19,0.4)] md:px-8 md:py-3.5 md:text-lg"
+              >
+                Make a Referral
+              </motion.button>
+            </Link>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
   );
 };
 

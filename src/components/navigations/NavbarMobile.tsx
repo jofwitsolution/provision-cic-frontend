@@ -85,6 +85,11 @@ const NavbarMobile = () => {
               Contact
             </Button>
           </Link>
+          <Link to={"/referrals"} className="w-full">
+            <Button className="w-full bg-primary-100 hover:bg-primary-200 text-background px-7.5 py-5 rounded-[50px] cursor-pointer">
+              Refer Someone
+            </Button>
+          </Link>
         </SheetFooter>
       </SheetContent>
     </Sheet>

@@ -1,48 +1,53 @@
-import Button from "../../components/Button";
-import { NavLink } from "react-router-dom";
-
-const events = [
-  {
-    id: 1,
-    title: "2025 Christmas Celebration",
-    text: "A joyful and memorable Christmas 2025 celebration filled with laughter, togetherness, and community spirit, as residents, staff, and supporters came together to mark the festive season.",
-  },
-  {
-    id: 2,
-    title: "Amber Weather Warning — Important",
-    text: " An amber weather warning has been issued for the West Midlands due to the potential impact of heavy snowfall, strong winds, and cold conditions between January 8 and January 12, 2026.",
-  },
-  {
-    id: 3,
-    title: "Community Wellbeing Workshop",
-    text: "Join us for a free Community Wellbeing Workshop designed to support individuals and families with practical resources, wellbeing tips, and local support information.",
-  },
-];
+import { motion, type Variants } from "framer-motion";
+import EventCard from "@/components/shared/EventCard";
+import { recentNews } from "@/lib/data";
 
 const LatestEvents = () => {
-  return (
-    <section className="margin-top-13 font-DM-Sans m-auto">
-      <h2 className="text-center text-[8px] mt-10 md:text-[20px]">
-        Latest Events
-      </h2>
-      <p className=" text-center mb-5">See updates and upcoming events</p>
+  const container: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.12 },
+    },
+  };
 
-      <div className=" !m-auto grid gap-[12px] max-w-[370px] md:grid-cols-3 md:max-w-[700px] lg:max-w-[1100px] ">
-        {events.map((event) => (
-          <div
-            className="relative bg-[#1d1836] mx-auto! text-[#f7f7f7] px-7.5! py-7.5! rounded-[10px] lg:max-w-87.5"
-            key={event.id}
-          >
-            <h3 className="!mb-[10px]">{event.title}</h3>
-            <p className=" text-[16px] !mb-[56px]">{event.text}</p>
-            <div className=" absolute right-[30px] bottom-[30px] ">
-              <NavLink to={`/events/${event.id}`}>
-                <Button text="Learn More" />
-              </NavLink>
-            </div>
-          </div>
-        ))}
-      </div>
+  const item: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
+  return (
+    <section className="py-14 font-DM-Sans md:py-20">
+      <motion.div
+        className="mx-auto w-full max-w-300 px-4"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <motion.div
+          variants={item}
+          className="mx-auto mb-12 max-w-190 text-center"
+        >
+          <span className="inline-flex items-center rounded-full border border-[#e4c9b2] bg-[#f7ede3] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a3f14]">
+            In the Community
+          </span>
+          <h2 className="mt-4 text-2xl font-semibold text-[#3f2b1d] md:text-4xl">
+            Latest Events
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#3f2b1d]/80 md:text-base">
+            Stay updated with our latest events, workshops, and community
+            updates
+          </p>
+        </motion.div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {recentNews.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 };

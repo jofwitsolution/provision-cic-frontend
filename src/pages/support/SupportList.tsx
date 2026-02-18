@@ -1,4 +1,3 @@
-import React from "react";
 const supportservices = [
   {
     title: "Financial Guidance",
@@ -38,12 +37,12 @@ const SupportList = () => {
       {supportservices.map((supportservice, index) => (
         <div
           key={index}
-          className="w-[330px] h-[300px]  rounded-[16px] !pt-3 bg-[#FD8282]/10   lg:w-[500px] lg:h-[340px]"
+          className="w-[330px] h-[300px]  rounded-[16px] !pt-3 bg-[#f2d9c2]/10   lg:w-[500px] lg:h-[340px]"
         >
           {/* mission container */}
           <div className="w-[296px] h-[276px] !mx-auto  !px-[16px] !py-4 bg-[white] rounded-[15px] gap-5! lg:w-[450px] lg:h-[305px]">
             {/*  */}
-            <div className=" flex   ml-auto! w-[20px] h-[20px] rounded-2xl bg-[#FD8282]/10 "></div>
+            <div className=" flex   ml-auto! w-[20px] h-[20px] rounded-2xl bg-primary-100/10 "></div>
             <h2 className="text-[#000000] text-[14px] mb-5! lg:text-[20px]">
               {supportservice.title}
             </h2>
