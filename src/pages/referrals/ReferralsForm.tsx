@@ -1,47 +1,21 @@
 import { discoveryModes } from "@/lib/data";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle, AlertCircle, Phone, Mail, User } from "lucide-react";
-import { useState } from "react";
+import { CheckCircle, Phone, Mail, User } from "lucide-react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const ReferSomeoneSchema = z.object({
-  clientFullName: z.string().nonempty("Full name is required."),
-  clientBirthDate: z.string().nonempty("Birth date is required."),
-  clientGender: z.string().nonempty("Gender is required."),
-  clientEmail: z
-    .string()
-    .nonempty("Client email is required.")
-    .email("Please enter a valid email address."),
-  clientAddLineOne: z.string().optional(),
-  clientAddLineTwo: z.string().optional(),
-  clientCounty: z.string().optional(),
-  clientCity: z.string().optional(),
-  clientPostCode: z.string().optional(),
-  clientPhone: z.string().optional(),
-  fixedAddress: z
-    .string()
-    .nonempty("Please select if client has fixed address."),
-  supportReason: z
-    .string()
-    .nonempty("Support reason is required.")
-    .min(10, "Please provide at least 10 characters."),
-  assistance: z.string().optional(),
-  clientContactModes: z
-    .array(z.string())
-    .nonempty("Please select at least one contact method."),
-  referralFullName: z.string().nonempty("Your full name is required."),
-  referralRole: z.string().optional(),
-  agencyOrProvider: z.string().optional(),
-  referralPhone: z.string().optional(),
-  referralEmail: z
-    .string()
-    .nonempty("Your email is required.")
-    .email("Please enter a valid email address."),
-  discoveryMode: z.string().nonempty("Please select how you heard about us."),
-});
+import {
+  referSomeoneSchema,
+  type ReferSomeoneFormData,
+} from "@/lib/validations/referral";
+import {
+  CheckboxGroup,
+  FormInput,
+  FormSelect,
+  FormTextarea,
+  RadioGroup,
+} from "@/components/shared/forms";
 
 const ReferralsForm = () => {
   const {
@@ -50,15 +24,22 @@ const ReferralsForm = () => {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(ReferSomeoneSchema),
+  } = useForm<ReferSomeoneFormData>({
+    resolver: zodResolver(referSomeoneSchema),
     mode: "onBlur",
   });
 
-  const [successMessage, setSuccessMessage] = useState(false);
-  const fixedAddress = watch("fixedAddress");
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [fixedAddress, setFixedAddress] = useState<string | undefined>();
 
-  const submitForm = async (data) => {
+  useEffect(() => {
+    const subscription = watch((value) => {
+      setFixedAddress(value.fixedAddress);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  const submitForm: SubmitHandler<ReferSomeoneFormData> = async (data) => {
     console.log("Form Data:", data);
     try {
       // await sendReferralData(data);
@@ -69,8 +50,9 @@ const ReferralsForm = () => {
       toast.success("Your referral has been submitted successfully!");
       setTimeout(() => setSuccessMessage(false), 5000);
     } catch (error) {
-      if (error?.response?.data?.msg) {
-        toast.error(error.response.data.msg);
+      const err = error as { response?: { data?: { msg?: string } } };
+      if (err?.response?.data?.msg) {
+        toast.error(err.response.data.msg);
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -106,218 +88,9 @@ const ReferralsForm = () => {
     },
   };
 
-  const inputVariants: Variants = {
-    focus: { scale: 1.01, boxShadow: "0 0 0 3px rgba(147, 71, 19, 0.1)" },
-  };
-
-  const FormInput = ({
-    label,
-    id,
-    type = "text",
-    error,
-    required = false,
-    icon: Icon,
-    ...props
-  }) => (
-    <div className="mb-5">
-      <label
-        htmlFor={id}
-        className="block text-sm font-semibold text-gray-800 mb-2"
-      >
-        {label}
-        {required && <span className="text-[#934713] ml-1">*</span>}
-      </label>
-      <div className="relative">
-        {Icon && (
-          <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#934713] opacity-60 pointer-events-none" />
-        )}
-        <input
-          type={type}
-          id={id}
-          className={`w-full px-4 py-3 ${Icon ? "pl-12" : "pl-4"} rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 placeholder:text-gray-400 ${
-            error
-              ? "border-red-300 focus:border-red-500 bg-red-50/30"
-              : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
-          }`}
-          {...props}
-        />
-      </div>
-      <AnimatePresence>
-        {error?.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {error.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
-  const FormSelect = ({
-    label,
-    id,
-    error,
-    required = false,
-    children,
-    ...props
-  }) => (
-    <div className="mb-5">
-      <label
-        htmlFor={id}
-        className="block text-sm font-semibold text-gray-800 mb-2"
-      >
-        {label}
-        {required && <span className="text-[#934713] ml-1">*</span>}
-      </label>
-      <select
-        id={id}
-        className={`w-full px-4 py-3 rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 cursor-pointer ${
-          error
-            ? "border-red-300 focus:border-red-500 bg-red-50/30"
-            : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
-        }`}
-        {...props}
-      >
-        {children}
-      </select>
-      <AnimatePresence>
-        {error?.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {error.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
-  const FormTextarea = ({ label, id, error, required = false, ...props }) => (
-    <div className="mb-5">
-      <label
-        htmlFor={id}
-        className="block text-sm font-semibold text-gray-800 mb-2"
-      >
-        {label}
-        {required && <span className="text-[#934713] ml-1">*</span>}
-      </label>
-      <textarea
-        id={id}
-        className={`w-full px-4 py-3 rounded-2xl border-2 transition-all duration-300 bg-white focus:outline-none font-medium text-gray-700 placeholder:text-gray-400 resize-none ${
-          error
-            ? "border-red-300 focus:border-red-500 bg-red-50/30"
-            : "border-[#e4c9b2] focus:border-[#934713] hover:border-[#d4b8a0]"
-        }`}
-        {...props}
-      />
-      <AnimatePresence>
-        {error?.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {error.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
-  const RadioGroup = ({ label, name, options, error, required = false }) => (
-    <div className="mb-5">
-      <label className="block text-sm font-semibold text-gray-800 mb-3">
-        {label}
-        {required && <span className="text-[#934713] ml-1">*</span>}
-      </label>
-      <div className="space-y-2.5">
-        {options.map((option) => (
-          <motion.label
-            key={option.value}
-            className="flex items-center cursor-pointer p-3 rounded-xl border-2 border-[#e4c9b2] hover:border-[#934713] hover:bg-[#f9f3ef] transition-all duration-200"
-            whileHover={{ scale: 1.01 }}
-          >
-            <input
-              type="radio"
-              value={option.value}
-              className="w-5 h-5 accent-[#934713] cursor-pointer"
-              {...register(name)}
-            />
-            <span className="ml-3 font-medium text-gray-700">
-              {option.label}
-            </span>
-          </motion.label>
-        ))}
-      </div>
-      <AnimatePresence>
-        {error?.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {error.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
-  const CheckboxGroup = ({ label, name, options, error, required = false }) => (
-    <div className="mb-5">
-      <label className="block text-sm font-semibold text-gray-800 mb-3">
-        {label}
-        {required && <span className="text-[#934713] ml-1">*</span>}
-      </label>
-      <div className="space-y-2.5">
-        {options.map((option) => (
-          <motion.label
-            key={option}
-            className="flex items-center cursor-pointer p-3 rounded-xl border-2 border-[#e4c9b2] hover:border-[#934713] hover:bg-[#f9f3ef] transition-all duration-200"
-            whileHover={{ scale: 1.01 }}
-          >
-            <input
-              type="checkbox"
-              value={option}
-              className="w-5 h-5 accent-[#934713] cursor-pointer rounded"
-              {...register(name)}
-            />
-            <span className="ml-3 font-medium text-gray-700">{option}</span>
-          </motion.label>
-        ))}
-      </div>
-      <AnimatePresence>
-        {error?.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-1.5 mt-2 text-red-600 text-xs font-medium"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {error.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-[#f9f3ef] via-white to-[#f6e4d5] py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-linear-to-br from-[#f9f3ef] via-white to-[#f6e4d5] py-12 px-4 sm:px-6 lg:px-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -332,7 +105,7 @@ const ReferralsForm = () => {
               exit={{ opacity: 0, y: -20 }}
               className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
             >
-              <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold text-emerald-800">Success!</p>
                 <p className="text-emerald-700 text-sm">
@@ -358,6 +131,23 @@ const ReferralsForm = () => {
               Complete this form to refer someone to ProVision's support
               services.
             </p>
+            <p className="text-lg text-gray-600">
+              The form is safe and secure. The information you provide is
+              confidential and protected by encryption. We will only share
+              information with professionals outside of ProVision Support
+              Services if we think someone is at risk of harm.
+            </p>
+            <p className="text-lg text-gray-600">
+              We will store this referral for a short time within the secure
+              Formstack database. We will then keep it in our own storage. Only
+              people who need to see the referral information will have access.
+            </p>
+            <p className="text-lg text-gray-600">
+              Please make sure you complete any questions marked with an
+              asterisk (*) as we need these details to complete the next steps
+              of your referral. You must have consent from your client to give
+              their details.
+            </p>
           </motion.div>
 
           {/* Section 1: Client Details */}
@@ -372,7 +162,7 @@ const ReferralsForm = () => {
               className="flex items-center gap-3 mb-8"
               variants={itemVariants}
             >
-              <User className="w-8 h-8 text-[#934713]" />
+              <User className="w-8 h-8 text-primary-100" />
               <h2 className="text-2xl font-bold text-gray-900">
                 Client's Details
               </h2>
@@ -389,7 +179,7 @@ const ReferralsForm = () => {
                 error={errors.clientFullName}
                 required
                 placeholder="Enter full name"
-                {...register("clientFullName")}
+                register={register("clientFullName")}
               />
 
               <FormInput
@@ -398,14 +188,14 @@ const ReferralsForm = () => {
                 type="date"
                 error={errors.clientBirthDate}
                 required
-                {...register("clientBirthDate")}
+                register={register("clientBirthDate")}
               />
 
               <RadioGroup
                 label="Sex at Birth"
-                name="clientGender"
                 error={errors.clientGender}
                 required
+                register={register("clientGender")}
                 options={[
                   { value: "female", label: "Female" },
                   { value: "male", label: "Male" },
@@ -427,7 +217,7 @@ const ReferralsForm = () => {
               className="flex items-center gap-3 mb-6"
               variants={itemVariants}
             >
-              <Phone className="w-8 h-8 text-[#934713]" />
+              <Phone className="w-8 h-8 text-primary-100" />
               <h2 className="text-2xl font-bold text-gray-900">
                 Contact Details
               </h2>
@@ -448,7 +238,7 @@ const ReferralsForm = () => {
             >
               <RadioGroup
                 label="Does your client have a fixed address?"
-                name="fixedAddress"
+                register={register("fixedAddress")}
                 options={[
                   { value: "yes", label: "Yes" },
                   { value: "no", label: "No" },
@@ -471,56 +261,56 @@ const ReferralsForm = () => {
                       <input
                         type="text"
                         placeholder="Street address"
-                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-primary-100 focus:outline-none font-medium text-gray-700"
                         {...register("clientAddLineOne")}
                       />
                     </div>
 
-                    <div variants={itemVariants}>
+                    <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">
                         Address Line 2
                       </label>
                       <input
                         type="text"
                         placeholder="Apartment, suite, etc (optional)"
-                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-primary-100 focus:outline-none font-medium text-gray-700"
                         {...register("clientAddLineTwo")}
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div variants={itemVariants}>
+                      <div>
                         <label className="block text-sm font-semibold text-gray-800 mb-2">
                           City
                         </label>
                         <input
                           type="text"
                           placeholder="City"
-                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-primary-100 focus:outline-none font-medium text-gray-700"
                           {...register("clientCity")}
                         />
                       </div>
 
-                      <div variants={itemVariants}>
+                      <div>
                         <label className="block text-sm font-semibold text-gray-800 mb-2">
                           County/Region
                         </label>
                         <input
                           type="text"
                           placeholder="County"
-                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-primary-100 focus:outline-none font-medium text-gray-700"
                           {...register("clientCounty")}
                         />
                       </div>
 
-                      <div variants={itemVariants}>
+                      <div>
                         <label className="block text-sm font-semibold text-gray-800 mb-2">
                           Postcode
                         </label>
                         <input
                           type="text"
                           placeholder="Postcode"
-                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-[#934713] focus:outline-none font-medium text-gray-700"
+                          className="w-full px-4 py-3 rounded-2xl border-2 border-[#e4c9b2] focus:border-primary-100 focus:outline-none font-medium text-gray-700"
                           {...register("clientPostCode")}
                         />
                       </div>
@@ -535,7 +325,7 @@ const ReferralsForm = () => {
                 type="tel"
                 placeholder="e.g. +44 (0)123 456 7890"
                 icon={Phone}
-                {...register("clientPhone")}
+                register={register("clientPhone")}
               />
 
               <FormInput
@@ -546,7 +336,7 @@ const ReferralsForm = () => {
                 required
                 placeholder="name@example.com"
                 icon={Mail}
-                {...register("clientEmail")}
+                register={register("clientEmail")}
               />
             </motion.div>
           </motion.div>
@@ -578,7 +368,7 @@ const ReferralsForm = () => {
                 required
                 placeholder="Please describe what support the client needs and why you are referring them..."
                 rows={5}
-                {...register("supportReason")}
+                register={register("supportReason")}
               />
 
               <FormTextarea
@@ -586,14 +376,18 @@ const ReferralsForm = () => {
                 id="assistance"
                 placeholder="e.g. translation services, accessibility requirements..."
                 rows={4}
-                {...register("assistance")}
+                register={register("assistance")}
               />
 
               <CheckboxGroup
                 label="How would your client like us to contact them?"
-                name="clientContactModes"
-                error={errors.clientContactModes}
+                error={
+                  Array.isArray(errors.clientContactModes)
+                    ? errors.clientContactModes[0]
+                    : errors.clientContactModes
+                }
                 required
+                register={register("clientContactModes")}
                 options={["Letter", "Email", "Phone", "Home visit"]}
               />
             </motion.div>
@@ -611,7 +405,7 @@ const ReferralsForm = () => {
               className="flex items-center gap-3 mb-8"
               variants={itemVariants}
             >
-              <User className="w-8 h-8 text-[#934713]" />
+              <User className="w-8 h-8 text-primary-100" />
               <h2 className="text-2xl font-bold text-gray-900">Your Details</h2>
             </motion.div>
 
@@ -626,21 +420,21 @@ const ReferralsForm = () => {
                 error={errors.referralFullName}
                 required
                 placeholder="Enter your full name"
-                {...register("referralFullName")}
+                register={register("referralFullName")}
               />
 
               <FormInput
                 label="Role"
                 id="referralRole"
                 placeholder="Your job title or role"
-                {...register("referralRole")}
+                register={register("referralRole")}
               />
 
               <FormInput
                 label="Agency or Provider"
                 id="agencyOrProvider"
                 placeholder="Your organization"
-                {...register("agencyOrProvider")}
+                register={register("agencyOrProvider")}
               />
 
               <FormInput
@@ -649,7 +443,7 @@ const ReferralsForm = () => {
                 type="tel"
                 placeholder="e.g. +44 (0)123 456 7890"
                 icon={Phone}
-                {...register("referralPhone")}
+                register={register("referralPhone")}
               />
 
               <FormInput
@@ -660,7 +454,7 @@ const ReferralsForm = () => {
                 required
                 placeholder="name@example.com"
                 icon={Mail}
-                {...register("referralEmail")}
+                register={register("referralEmail")}
               />
 
               <FormSelect
@@ -668,7 +462,7 @@ const ReferralsForm = () => {
                 id="discoveryMode"
                 error={errors.discoveryMode}
                 required
-                {...register("discoveryMode")}
+                register={register("discoveryMode")}
               >
                 {discoveryModes.map((item) => (
                   <option key={item.label} value={item.value}>
@@ -690,10 +484,10 @@ const ReferralsForm = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className={`px-8 py-4 rounded-2xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-3 min-w-[200px] ${
+              className={`px-8 py-4 rounded-2xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-3 min-w-50 ${
                 isSubmitting
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-[#934713] hover:bg-[#7a3f14] shadow-[0_12px_24px_rgba(147,71,19,0.3)]"
+                  : "bg-primary-100 hover:bg-[#7a3f14] shadow-[0_12px_24px_rgba(147,71,19,0.3)]"
               }`}
               whileHover={
                 !isSubmitting
@@ -726,7 +520,7 @@ const ReferralsForm = () => {
 
             <motion.button
               type="reset"
-              className="px-8 py-4 rounded-2xl font-semibold text-[#934713] bg-transparent border-2 border-[#934713] hover:bg-[#f9f3ef] transition-all duration-300"
+              className="px-8 py-4 rounded-2xl font-semibold text-primary-100 bg-transparent border-2 border-primary-100 hover:bg-[#f9f3ef] transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => {
@@ -746,7 +540,7 @@ const ReferralsForm = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <p className="text-sm text-gray-700">
-              <span className="font-semibold text-[#934713]">Thank you</span>{" "}
+              <span className="font-semibold text-primary-100">Thank you</span>{" "}
               for completing this referral form. We will review the information
               and contact the client within 5 working days.
             </p>

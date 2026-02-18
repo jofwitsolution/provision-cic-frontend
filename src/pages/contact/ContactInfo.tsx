@@ -1,4 +1,3 @@
-import React from "react";
 import Locationicon from "../../assets/icons/Icon Container.png";
 import Timeicon from "../../assets/icons/Icon Container (1).png";
 import Callicon from "../../assets/icons/Icon Container (2).png";
@@ -8,9 +7,9 @@ const contactCards = [
     icon: Messageeicon,
     text: (
       <>
-        info@provisionsupportservices.co.uk
+        info@provisionsupportservice.co.uk
         <br />
-        referrals@provisionsupportservices.co.uk
+        referrals@provisionsupportservice.co.uk
       </>
     ),
   },
@@ -48,8 +47,8 @@ const contactCards = [
 
 const ContactInfo = () => {
   return (
-    <div className="max-w-full !mt-[40px] !m-auto !px-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-[10px]">
+    <div className="max-w-full mt-10! m-auto! px-4!">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5">
         {contactCards.map((card, index) => (
           <div
             key={index}
@@ -58,16 +57,16 @@ const ContactInfo = () => {
           rounded-[14px]
           border
           border-[#D6D6D6]
-          !p-[20px]
+          p-5!
           flex
           flex-col
           items-center
           text-center
-          gap-[12px]
+          gap-3
           relative"
           >
             {/* Icon */}
-            <div className="w-[44px] h-[44px] rounded-full  flex items-center justify-center text-[20px]">
+            <div className="w-11 h-11 rounded-full  flex items-center justify-center text-[20px]">
               <img
                 src={card.icon}
                 alt="Contact Icon"
@@ -76,14 +75,10 @@ const ContactInfo = () => {
             </div>
 
             {/* Text */}
-            <p className="text-[10px] leading-[18px] text-[#333]">
-              {card.text}
-            </p>
+            <p className="text-[10px] leading-4.5 text-[#333]">{card.text}</p>
 
             {/* Arrow */}
-            <span className="absolute top-[14px] right-[14px] text-[14px]">
-              ↗
-            </span>
+            <span className="absolute top-3.5 right-3.5 text-[14px]">↗</span>
           </div>
         ))}
       </div>

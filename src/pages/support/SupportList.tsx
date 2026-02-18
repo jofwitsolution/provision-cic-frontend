@@ -33,20 +33,20 @@ const supportservices = [
 
 const SupportList = () => {
   return (
-    <div className="flex flex-col !mt-[30px] !m-auto  max-w-[350px] md:flex-row md:flex-wrap gap-[20px]  !mt-[50px]!  !mb-[30px]  lg:max-w-[1330px] md:mx-auto md:justify-center md:gap-[30px] lg:mt-[70px]!">
+    <div className="flex flex-col mt-7.5! m-auto!  max-w-87.5 md:flex-row md:flex-wrap gap-5 mb-7.5!  lg:max-w-332.5 md:mx-auto md:justify-center md:gap-7.5 lg:mt-17.5!">
       {supportservices.map((supportservice, index) => (
         <div
           key={index}
-          className="w-[330px] h-[300px]  rounded-[16px] !pt-3 bg-[#f2d9c2]/10   lg:w-[500px] lg:h-[340px]"
+          className="w-82.5 h-75  rounded-3xl pt-3! bg-[#f2d9c2]/10   lg:w-125 lg:h-85"
         >
           {/* mission container */}
-          <div className="w-[296px] h-[276px] !mx-auto  !px-[16px] !py-4 bg-[white] rounded-[15px] gap-5! lg:w-[450px] lg:h-[305px]">
+          <div className="w-74 h-69 mx-auto!  px-4! py-4! bg-[white] rounded-[15px] gap-5! lg:w-112.5 lg:h-76.25">
             {/*  */}
-            <div className=" flex   ml-auto! w-[20px] h-[20px] rounded-2xl bg-primary-100/10 "></div>
+            <div className=" flex   ml-auto! w-5 h-5 rounded-2xl bg-primary-100/10 "></div>
             <h2 className="text-[#000000] text-[14px] mb-5! lg:text-[20px]">
               {supportservice.title}
             </h2>
-            <p className="text-[12px] leading-[30px] lg:text-[16px]">
+            <p className="text-[12px] leading-7.5 lg:text-[16px]">
               {supportservice.description}
             </p>
           </div>

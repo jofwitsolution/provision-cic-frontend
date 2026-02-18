@@ -2,7 +2,7 @@ import supportworker from "../../assets/images/support-worker-1-f0f32ffb 1 (5).p
 
 const FaqHero = () => {
   return (
-    <div className="relative w-full h-[150px] md:!h-[40vh]  ">
+    <div className="relative w-full h-37.5 md:h-[40vh]!  ">
       <img
         className="absolute inset-0 w-full h-full object-cover"
         src={supportworker}
@@ -10,8 +10,8 @@ const FaqHero = () => {
       />
       <div className="absolute inset-0 bg-[#000000]/60 "></div>
       <div className="relative  z-1 flex  items-center justify-center h-full px-4">
-        <div className=" max-w-[370px]  md:max-w-[1000px] text-white text-center ">
-          <h2 className=" font-Mogra  text-[21px] !mb-[5px] md:text-[60px]">
+        <div className=" max-w-92.5  md:max-w-250 text-white text-center ">
+          <h2 className=" font-Mogra  text-[21px] mb-1.25! md:text-[60px]">
             {" "}
             Frequently Asked Questions
           </h2>
