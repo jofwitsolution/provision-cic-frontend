@@ -9,7 +9,7 @@ const accoProvd = [
     image: image1,
     title: "Your Commitment",
     content:
-      "Adherence to our standards and House Rules ensures continuity. We expect a minimum tenure of 9 months, during which we work collaboratively to help you achieve your personalized Support Plan objectives.",
+      "Adherence to our standards and House Rules ensures continuity. We expect a minimum tenure of 9 months, during which we work collaboratively to help you achieve your personalised Support Plan objectives.",
     accent: "from-[#f9dec7]",
   },
   {

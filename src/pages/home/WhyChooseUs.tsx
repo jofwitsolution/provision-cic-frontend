@@ -3,7 +3,7 @@ import { motion, type Variants, AnimatePresence } from "framer-motion";
 
 const items = [
   {
-    title: "Personalized Support Plans",
+    title: "Personalised Support Plans",
     content:
       "We tailor support plans to each individual's unique needs and aspirations, ensuring your journey is truly your own.",
     icon: "🎯",
@@ -68,7 +68,7 @@ const WhyChooseUs = () => {
             Why Choose Us
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-[#3f2b1d]/80 md:text-base">
-            Our personalized care, commitment to your goals, and proven pathway
+            Our personalised care, commitment to your goals, and proven pathway
             to independence set us apart. You're not just a resident — you're on
             a journey towards self-sufficiency and well-being.
           </p>

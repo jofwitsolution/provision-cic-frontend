@@ -433,7 +433,7 @@ const ReferralsForm = () => {
               <FormInput
                 label="Agency or Provider"
                 id="agencyOrProvider"
-                placeholder="Your organization"
+                placeholder="Your organisation"
                 register={register("agencyOrProvider")}
               />
 

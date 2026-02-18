@@ -45,8 +45,8 @@ const Policies = () => {
           text: "By signing our consent form, you provide your consent for us to process your data, including personal and special category data. Your support details will be securely stored in a shared electronic case management system accessed by ProVision Support Service members. Paper copies of your data may also be stored securely.",
         },
         {
-          label: "Permission to Share Your Data with Other Organizations",
-          text: "While we treat all information you share with us confidentially, there may be instances where we suggest that you seek advice from other organizations better equipped to address your needs. With your consent, we may:",
+          label: "Permission to Share Your Data with Other Organisations",
+          text: "While we treat all information you share with us confidentially, there may be instances where we suggest that you seek advice from other organisations better equipped to address your needs. With your consent, we may:",
           bullets: [
             "Refer you to other third-party services.",
             "Make appointments with other third-party services on your behalf.",

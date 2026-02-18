@@ -125,12 +125,12 @@ export const faqs = [
     question:
       "What competitive advantage does ProVision Support Service offer?",
     answer:
-      "We stand out by creating a safe, nurturing, and personalized living environment, focusing on individualized care plans and experienced support staff.",
+      "We stand out by creating a safe, nurturing, and personalised living environment, focusing on individualised care plans and experienced support staff.",
   },
   {
     question: "What are the market trends in supported living?",
     answer:
-      "The demand for supported living options is steadily growing, driven by a societal shift toward community-based care and the recognition of the benefits of personalized, independent living.",
+      "The demand for supported living options is steadily growing, driven by a societal shift toward community-based care and the recognition of the benefits of personalised, independent living.",
   },
   {
     question:

@@ -73,7 +73,7 @@ const Whatarewe = () => {
                 "Person-first care plans",
                 "Accessible, safe homes",
                 "Partnered specialist support",
-                "Owner value maximized",
+                "Owner value maximised",
               ].map((label) => (
                 <div
                   key={label}

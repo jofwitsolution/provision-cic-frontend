@@ -41,7 +41,7 @@ const Terms = () => {
       title: "Charges",
       icon: DollarSign,
       description:
-        "The Licensee agrees to pay the license charge weekly and in advance.",
+        "The Licensee agrees to pay the licence charge weekly and in advance.",
     },
     {
       number: 2,
@@ -69,14 +69,14 @@ const Terms = () => {
       title: "Nuisance",
       icon: AlertCircle,
       description:
-        "The Licensee shall not cause or allow visitors to cause a nuisance or annoyance to other residents, staff, contractors, or neighbors.",
+        "The Licensee shall not cause or allow visitors to cause a nuisance or annoyance to other residents, staff, contractors, or neighbours.",
     },
     {
       number: 6,
       title: "Racial and Other Harassment",
       icon: Shield,
       description:
-        "The Licensee shall not commit or allow visitors to commit harassment on the grounds of race, color, religion, sex, sexual orientation, age, or disability that may interfere with the peace and comfort of others.",
+        "The Licensee shall not commit or allow visitors to commit harassment on the grounds of race, colour, religion, sex, sexual orientation, age, or disability that may interfere with the peace and comfort of others.",
     },
     {
       number: 7,

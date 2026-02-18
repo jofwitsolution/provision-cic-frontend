@@ -44,7 +44,7 @@ const WelcometoProvision = () => {
           </div>
 
           <div className="hero-tile">
-            <img src={img4} alt="Care-focused accommodation" />
+            <img src={img4} alt="Care-focussed accommodation" />
           </div>
 
           <div className="hero-tile hero-hide-mobile hero-tilt-left">

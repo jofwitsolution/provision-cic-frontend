@@ -33,7 +33,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/events/:slug" element={<EventDetails />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/termsandcondition" element={<TermsAndCondition />} />
+        <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
     </>

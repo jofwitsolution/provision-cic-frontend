@@ -5,9 +5,9 @@ const supportservices = [
       "Our experienced team offers expert guidance in budgeting and financial management, with a focus on understanding and addressing your unique needs. We work closely with you to build financial stability and help you make informed financial decisions.",
   },
   {
-    title: "Access to Specialized Services",
+    title: "Access to Specialised Services",
     description:
-      "Navigating the support landscape can be challenging, which is why we provide assistance in accessing specialized services related to education, health, and other critical areas. Our networking ensures you get the support you need.",
+      "Navigating the support landscape can be challenging, which is why we provide assistance in accessing specialised services related to education, health, and other critical areas. Our networking ensures you get the support you need.",
   },
   {
     title: "Maintenance Practices",

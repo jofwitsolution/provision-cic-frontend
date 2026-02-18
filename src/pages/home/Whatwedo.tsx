@@ -75,7 +75,7 @@ const Whatwedo = () => {
             What We Do
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-[#3f2b1d]/80 md:text-base">
-            A focused set of services designed to help people thrive, live
+            A focussed set of services designed to help people thrive, live
             independently, and feel supported at every step.
           </p>
         </motion.div>
