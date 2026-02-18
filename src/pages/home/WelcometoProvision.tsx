@@ -31,7 +31,7 @@ const WelcometoProvision = () => {
         </Link>
 
         <div className="hero-grid hero-fade-up hero-fade-up-delay-4">
-          <div className="hero-tile hero-tilt-left">
+          <div className="hero-tile hero-hide-mobile hero-tilt-left">
             <img src={img1} alt="Community home exterior" />
           </div>
 

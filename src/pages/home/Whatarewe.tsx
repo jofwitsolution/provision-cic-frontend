@@ -45,7 +45,7 @@ const Whatarewe = () => {
             Provision Support Services
           </span>
           <h2 className="mt-4 text-2xl font-semibold text-[#3f2b1d] md:text-4xl">
-            Who Are We
+            Who We Are
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-[#3f2b1d]/80 md:text-base">
             We are a community-led CIC creating supported living experiences

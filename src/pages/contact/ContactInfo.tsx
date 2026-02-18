@@ -9,7 +9,7 @@ const contactCards = [
       <>
         info@provisionsupportservice.co.uk
         <br />
-        referrals@provisionsupportservice.co.uk
+        info@provisionsupportservice.co.uk
       </>
     ),
   },

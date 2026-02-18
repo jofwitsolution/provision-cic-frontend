@@ -6,6 +6,7 @@ import WhyChooseUs from "./WhyChooseUs";
 import WhatweDo from "./Whatwedo.tsx";
 import WhatAreWe from "./Whatarewe";
 import Whereweoperate from "./Whereweoperate.tsx";
+import JoinProvision from "@/components/JoinProvision.tsx";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <Whereweoperate />
       <WhyChooseUs />
       <LatestEvents />
+      <JoinProvision />
       <Footer />
     </div>
   );
