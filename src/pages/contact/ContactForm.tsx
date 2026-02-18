@@ -8,7 +8,7 @@ import {
   contactFormSchema,
   type ContactFormData,
 } from "@/lib/validations/contact";
-import { FormInput, FormTextarea } from "@/components/shared/forms";
+import { FormInput, FormTextarea } from "@/components/shared/formik";
 import API from "@/lib/axios-client";
 
 const ContactForm = () => {

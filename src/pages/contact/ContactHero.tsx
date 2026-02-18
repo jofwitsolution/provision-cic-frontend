@@ -1,4 +1,3 @@
-import React from "react";
 import supportworker from "../../assets/images/support-worker-1-f0f32ffb 1 (8).png";
 
 const ContactHero = () => {
