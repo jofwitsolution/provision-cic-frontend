@@ -9,6 +9,7 @@ import {
   type ContactFormData,
 } from "@/lib/validations/contact";
 import { FormInput, FormTextarea } from "@/components/shared/forms";
+import API from "@/lib/axios-client";
 
 const ContactForm = () => {
   const {
@@ -24,18 +25,18 @@ const ContactForm = () => {
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const submitForm: SubmitHandler<ContactFormData> = async (data) => {
-    console.log("Contact Form Data:", data);
     try {
       // Mock submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      await API.post("/email/contact-us", data);
       reset();
       setSuccessMessage(true);
       toast.success("Your message has been sent successfully!");
-      setTimeout(() => setSuccessMessage(false), 5000);
+      setTimeout(() => setSuccessMessage(false), 8000);
     } catch (error) {
-      const err = error as { response?: { data?: { msg?: string } } };
-      if (err?.response?.data?.msg) {
-        toast.error(err.response.data.msg);
+      const err = error as { response?: { data?: { message?: string } } };
+      if (err?.response?.data?.message) {
+        toast.error(err.response.data.message);
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -79,26 +80,6 @@ const ContactForm = () => {
       transition={{ duration: 0.6 }}
     >
       <div className="max-w-3xl mx-auto">
-        {/* Success Message */}
-        <AnimatePresence>
-          {successMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
-            >
-              <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-emerald-800">Success!</p>
-                <p className="text-emerald-700 text-sm">
-                  Your message has been sent successfully.
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         <form onSubmit={handleSubmit(submitForm)}>
           {/* Header Section */}
           <motion.div
@@ -243,6 +224,27 @@ const ContactForm = () => {
               </button>
             </motion.div>
           </motion.div>
+
+          {/* Success Message */}
+          <AnimatePresence>
+            {successMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
+              >
+                <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-emerald-800">Success!</p>
+                  <p className="text-emerald-700 text-sm">
+                    Your message has been sent successfully. We will get back to
+                    you shortly!
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Info Notice */}
           <motion.div

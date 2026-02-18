@@ -1,7 +1,7 @@
-import React from "react";
 import imagecom1 from "../../assets/images/Frame 11 (5).png";
 import imagecom2 from "../../assets/images/Frame 11 (6).png";
 import imagecom3 from "../../assets/images/Frame 11 (8).png";
+
 const supportcomm = [
   {
     image: imagecom1,
@@ -25,20 +25,20 @@ const supportcomm = [
 
 const SupportCommunities = () => {
   return (
-    <section className="flex !mt-[30px] !m-auto px-4 flex-col  max-w-[370px] max-h-[1556px] md:max-w-[770px] lg:max-w-[1200px] md:!mt-[50px]">
+    <section className="flex mt-7.5! m-auto! px-4 flex-col  max-w-92.5 max-h-389 md:max-w-192.5 lg:max-w-300 md:mt-12.5">
       {/*  */}
-      <div className="flex flex-col gap-[15px] !mb-[20px] text-center max-h-[144px]">
+      <div className="flex flex-col gap-3.75 mb-5! text-center max-h-36">
         {/* h2 */}
         <h2 className="text-[22px] md: text-[25px">Our Accommodations</h2>
         {/* p */}
-        <p className=" !m-auto text-[12px]  max-w-[300px] md:max-w-[800px] md:text-[18px]">
+        <p className=" m-auto! text-[12px]  max-w-75 md:max-w-200 md:text-[18px]">
           We are dedicated to creating a positive and nurturing environment that
           goes beyond just accommodation. Our mission is to build communities
           that empower individuals and promote well-being, connection, and
           sustainability.
         </p>
       </div>
-      <div className=" !m-auto !mt-[10px] grid  gap-[12px]  max-w-[370px] md:grid-cols-2  md:max-w-[700px]  lg:max-w-[1100px] ">
+      <div className=" m-auto! mt-2.5! grid  gap-3  max-w-92.5 md:grid-cols-2  md:max-w-175  lg:max-w-275">
         {/*  */}
         {supportcomm.map((supportcom, index) => (
           //
@@ -48,12 +48,12 @@ const SupportCommunities = () => {
           >
             {/* image */}
             <img
-              className="rounded-t-[10px] w-[100%] !!md:h-[311px] "
+              className="rounded-t-[10px] w-full md:h-77.75!"
               src={supportcom.image}
               alt=""
             />
             {/*  */}
-            <div className="!m-auto  md:h-[235px] !px-[15px] !py-[15px]  md:!px-[25px] md:!py-[25px]  lg:h-[200px] ">
+            <div className="m-auto!  md:h-58.75 px-3.75 py-3.75  md:px-6.25 md:py-6.25!  lg:h-50 ">
               {/*  */}
               <h4 className="text-[14px] md:text-[20px]">{supportcom.title}</h4>
               {/*  */}

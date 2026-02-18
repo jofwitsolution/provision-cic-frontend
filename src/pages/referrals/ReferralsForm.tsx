@@ -16,6 +16,7 @@ import {
   FormTextarea,
   RadioGroup,
 } from "@/components/shared/forms";
+import API from "@/lib/axios-client";
 
 const ReferralsForm = () => {
   const {
@@ -40,19 +41,18 @@ const ReferralsForm = () => {
   }, [watch]);
 
   const submitForm: SubmitHandler<ReferSomeoneFormData> = async (data) => {
-    console.log("Form Data:", data);
     try {
-      // await sendReferralData(data);
       // Mock submission for now
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      await API.post("/email/refer-someone", data);
       reset();
       setSuccessMessage(true);
       toast.success("Your referral has been submitted successfully!");
-      setTimeout(() => setSuccessMessage(false), 5000);
+      setTimeout(() => setSuccessMessage(false), 8000);
     } catch (error) {
-      const err = error as { response?: { data?: { msg?: string } } };
-      if (err?.response?.data?.msg) {
-        toast.error(err.response.data.msg);
+      const err = error as { response?: { data?: { message?: string } } };
+      if (err?.response?.data?.message) {
+        toast.error(err.response.data.message);
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -96,26 +96,6 @@ const ReferralsForm = () => {
       transition={{ duration: 0.6 }}
     >
       <div className="max-w-3xl mx-auto">
-        {/* Success Message */}
-        <AnimatePresence>
-          {successMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
-            >
-              <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-emerald-800">Success!</p>
-                <p className="text-emerald-700 text-sm">
-                  Your referral has been submitted successfully.
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         <form onSubmit={handleSubmit(submitForm)}>
           {/* Header Section */}
           <motion.div
@@ -530,6 +510,27 @@ const ReferralsForm = () => {
               Clear Form
             </motion.button>
           </motion.div>
+
+          {/* Success Message */}
+          <AnimatePresence>
+            {successMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="mb-6 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex items-start gap-3"
+              >
+                <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-emerald-800">Success!</p>
+                  <p className="text-emerald-700 text-sm">
+                    Your referral has been submitted successfully. We will get
+                    back to you shortly!
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Info Banner */}
           <motion.div
