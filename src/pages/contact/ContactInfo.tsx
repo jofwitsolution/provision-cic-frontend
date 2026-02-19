@@ -7,9 +7,8 @@ const contactCards = [
     icon: Messageeicon,
     text: (
       <>
-        info@provisionsupportservice.co.uk
-        <br />
-        info@provisionsupportservice.co.uk
+        info@provisionsupportservice.co.uk <br />{" "}
+        referrals@provisionsupportservice.co.uk
       </>
     ),
   },
@@ -17,9 +16,9 @@ const contactCards = [
     icon: Callicon,
     text: (
       <>
-        +44 7581 487408
+        +44 7828 887031
         <br />
-        +44 7829 887031
+        +44 7581 467406
       </>
     ),
   },
@@ -37,7 +36,7 @@ const contactCards = [
     icon: Locationicon,
     text: (
       <>
-        32 Heathville Road, B28 9QF
+        32 Hazelville Road, B28 9QF
         <br />
         Birmingham
       </>

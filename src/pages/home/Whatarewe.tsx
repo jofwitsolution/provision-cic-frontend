@@ -84,11 +84,11 @@ const Whatarewe = () => {
               ))}
             </div>
 
-            <Link to="/support" className="inline-flex">
+            <Link to="/about" className="inline-flex">
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-primary-100 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_32px_rgba(147,71,19,0.28)] transition"
+                className="cursor-pointer mt-2 inline-flex items-center gap-2 rounded-2xl bg-primary-100 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_32px_rgba(147,71,19,0.28)] transition"
               >
                 Discover More
                 <span className="text-lg">→</span>
