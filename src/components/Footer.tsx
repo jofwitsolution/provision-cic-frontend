@@ -5,6 +5,15 @@ import linkedin from "../assets/icons/mdi_linkedin.png";
 import twitter from "../assets/icons/prime_twitter.png";
 import instagram from "../assets/icons/mdi_instagram.png";
 
+const socialMediaLinks = [
+  {
+    icon: linkedin,
+    href: "https://www.linkedin.com/company/provision-support-services-cic/",
+  },
+  { icon: twitter, href: "https://twitter.com/ProVisionCIC" },
+  { icon: instagram, href: "https://www.instagram.com/provisioncic/" },
+];
+
 const Footer = () => {
   const container: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -49,15 +58,15 @@ const Footer = () => {
               care across Coventry.
             </p>
             <div className="flex gap-3">
-              {[linkedin, twitter, instagram].map((icon, idx) => (
+              {socialMediaLinks.map((link, idx) => (
                 <motion.a
                   key={idx}
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#"
+                  href={link.href}
                   className="rounded-lg bg-primary-100 p-2 shadow-[0_8px_16px_rgba(147,71,19,0.15)] transition"
                 >
-                  <img src={icon} alt="" className="h-5 w-5" />
+                  <img src={link.icon} alt="" className="h-5 w-5" />
                 </motion.a>
               ))}
             </div>
