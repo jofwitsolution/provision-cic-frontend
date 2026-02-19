@@ -4,16 +4,21 @@ import TermsAndConditionHero from "../TermsAndCondition/TermsAndConditionHero";
 import Terms from "./Terms";
 
 import Navbar from "@/components/navigations/Navbar";
+import Meta from "@/components/shared/Meta";
 
 const TermsAndCondition = () => {
   return (
-    <div>
+    <>
+      <Meta
+        title="Terms and Conditions - ProVision Support Services CIC"
+        description="Terms and Conditions for ProVision Support Services CIC"
+      />
       <Navbar />
       <TermsAndConditionHero />
       <Terms />
       <JoinProvision />
       <Footer />
-    </div>
+    </>
   );
 };
 

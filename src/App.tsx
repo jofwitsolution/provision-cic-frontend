@@ -15,14 +15,24 @@ import EventDetails from "./pages/EventDetails/EventDetails.tsx";
 import Faq from "./pages/Faq/Faq.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndCondition from "./pages/TermsAndCondition/TermsAndCondition.tsx";
+import TawkTo from "./components/TawkTo.tsx";
 
 function App() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  const tawkPropertyId = import.meta.env.VITE_TAWK_PROPERTY_ID;
+  const tawkWidgetId = import.meta.env.VITE_TAWK_WIDGET_ID;
+
   return (
     <>
+      {/* Tawk.to Live Chat Widget */}
+      {tawkPropertyId && tawkWidgetId && (
+        <TawkTo propertyId={tawkPropertyId} widgetId={tawkWidgetId} />
+      )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

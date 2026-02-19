@@ -34,9 +34,9 @@ const EventHero = () => {
           transition={{ delay: 0.35 }}
           className="font-['DM Sans'] text-sm leading-relaxed text-white/90 md:text-xl"
         >
-          Explore our recent events that highlight our commitment to community
-          engagement and support services. From workshops to social gatherings,
-          stay informed about how we make a difference together.
+          Explore our recent events and news that highlight our commitment to
+          community engagement and support services. From workshops to social
+          gatherings, stay informed about how we make a difference together.
         </motion.p>
       </motion.div>
     </section>

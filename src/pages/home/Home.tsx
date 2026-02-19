@@ -7,10 +7,15 @@ import WhatweDo from "./Whatwedo.tsx";
 import WhatAreWe from "./Whatarewe";
 import Whereweoperate from "./Whereweoperate.tsx";
 import JoinProvision from "@/components/JoinProvision.tsx";
+import Meta from "@/components/shared/Meta";
 
 const Home = () => {
   return (
-    <div>
+    <>
+      <Meta
+        title="Home - ProVision Support Services CIC"
+        description="Welcome to ProVision Support Services CIC, your trusted partner in accommodation and support services. We are dedicated to providing exceptional solutions that empower individuals and communities. Explore our range of services and discover how we can assist you in finding the perfect property solution."
+      />
       <Navbar />
       <WelcometoProvision />
       <WhatAreWe />
@@ -20,7 +25,7 @@ const Home = () => {
       <LatestEvents />
       <JoinProvision />
       <Footer />
-    </div>
+    </>
   );
 };
 
