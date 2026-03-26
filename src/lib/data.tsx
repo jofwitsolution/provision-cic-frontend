@@ -43,6 +43,32 @@ export const recentNews = [
     videos: [],
     tag: "Alert",
   },
+  {
+    id: 3,
+    title: "Official Opening Ceremony – Supported Accommodation Hostel",
+    slug: "provision-hostel-opening-coventry-march-2026",
+    date: "2026-03-20",
+    excerpt:
+      "ProVision Support Services CIC, in partnership with Coventry City Council and community stakeholders, celebrated the official opening of a newly refurbished 15‑unit supported accommodation hostel on March 20, 2026.",
+    content:
+      "On Friday, March 20, 2026, ProVision Support Services CIC proudly hosted the official opening ceremony of its newly refurbished supported accommodation hostel at 31 Dorset Road, Coventry. The event, held in partnership with Coventry City Council and local community stakeholders, marked a significant milestone in the ongoing effort to address homelessness in the city.\n\nThe hostel features 15 modern units, each designed to provide safe, stable, and supportive housing for individuals experiencing homelessness. The refurbishment project was undertaken to ensure that residents have access to dignified living spaces, fostering stability and opportunities for personal growth.\n\nThe ceremony began at 12:00 PM, with the official ribbon cutting at 12:15 PM. Attendees included representatives from Coventry City Council, community leaders, partner organizations, and supporters of ProVision’s mission. The event highlighted the importance of collaborative efforts in tackling homelessness and emphasized the role of safe housing as a foundation for rebuilding lives.\n\nGuests were given a tour of the facility, showcasing the upgraded living spaces and communal areas designed to encourage community integration. The atmosphere was celebratory yet purposeful, underscoring the collective commitment to creating pathways out of homelessness.\n\nProVision Support Services CIC extends heartfelt gratitude to all who attended and contributed to making this vision a reality. This hostel represents more than just accommodation—it is a beacon of hope, stability, and opportunity for those in need.",
+    category: "Event",
+    mediaNote:
+      "This event marks the launch of a vital community resource, providing safe housing and support for individuals experiencing homelessness in Coventry.",
+    otherImages: [
+      eventImages.hostel_march_2026_1,
+      eventImages.hostel_march_2026_2,
+      eventImages.hostel_march_2026_3,
+      eventImages.hostel_march_2026_4,
+      eventImages.hostel_march_2026_5,
+      eventImages.hostel_march_2026_6,
+      eventImages.hostel_march_2026_7,
+      eventImages.hostel_march_2026_8,
+      eventImages.hostel_march_2026_9,
+    ],
+    videos: [],
+    tag: "Community",
+  },
 ];
 
 export const discoveryModes = [

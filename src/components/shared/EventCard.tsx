@@ -22,7 +22,7 @@ const EventCard = ({ event }: { event: EventType }) => {
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold leading-tight text-[#3f2b1d]">
+          <h3 className="text-lg font-semibold leading-tight line-clamp-1 text-[#3f2b1d]">
             {event.title}
           </h3>
         </div>
