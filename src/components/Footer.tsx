@@ -103,14 +103,29 @@ const Footer = () => {
                 { label: "Privacy Policy", href: "/privacy-policy" },
                 { label: "Terms & Conditions", href: "/terms-and-conditions" },
                 { label: "Contact Us", href: "/contact" },
+                {
+                  label: "Donate on GoFundMe",
+                  href: "https://gofund.me/2d01826c4",
+                },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
-                  >
-                    {link.label} →
-                  </Link>
+                  {link.href.startsWith("http") ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
+                    >
+                      {link.label} →
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
+                    >
+                      {link.label} →
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

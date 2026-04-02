@@ -1,6 +1,6 @@
 import primaryLogo from "@/assets/primary-logo.png";
 import { Link, useLocation } from "react-router-dom";
-import { navbarRoutes } from "@/lib/routes";
+import { goFundMeLink, navbarRoutes } from "@/lib/routes";
 import NavbarMobile from "./NavbarMobile";
 import { Button } from "../ui/button";
 
@@ -14,7 +14,7 @@ const Navbar = () => {
           <img src={primaryLogo} alt="provision" className="w-25" />
         </Link>
 
-        <div className="flex items-center gap-8 font-medium text-foreground max-md:hidden">
+        <div className="flex items-center gap-8 font-medium text-foreground max-lg:hidden">
           {navbarRoutes.map((item) => {
             const isActive =
               (pathname.includes(item.route) && item.route.length > 1) ||
@@ -33,9 +33,14 @@ const Navbar = () => {
           })}
         </div>
         <div className="max-md:hidden flex gap-4 items-center">
-          <Link to={"/contact"} className="w-full">
+          <Link
+            to={goFundMeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full"
+          >
             <Button className="w-full bg-transparent hover:bg-transparent border border-primary-100 hover:border-primary-200 text-primary-100 px-7.5 py-5 rounded-[50px] cursor-pointer">
-              Contact
+              Donate
             </Button>
           </Link>
           <Link to={"/referrals"} className="w-full">

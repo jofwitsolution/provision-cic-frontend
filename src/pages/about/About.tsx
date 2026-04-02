@@ -3,6 +3,7 @@ import AboutHero from "./AboutHero";
 import OurObjeective from "./OurObjeective";
 import OurMission from "./OurMission";
 import OurCoreValues from "./OurCoreValues";
+import GoFundMeSection from "@/components/GoFundMeSection";
 import Footer from "@/components/Footer";
 import Meta from "@/components/shared/Meta";
 
@@ -19,6 +20,7 @@ const About = () => {
       <OurMission />
       <OurObjeective />
       {/* <LatestEvent /> */}
+      <GoFundMeSection />
       <Footer />
     </>
   );

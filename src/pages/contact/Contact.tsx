@@ -1,6 +1,7 @@
 import ContactForm from "./ContactForm";
 import ContactInfo from "./ContactInfo";
 import ContactHero from "./ContactHero";
+import GoFundMeSection from "@/components/GoFundMeSection";
 import Footer from "../../components/Footer";
 import Navbar from "@/components/navigations/Navbar";
 import Meta from "@/components/shared/Meta";
@@ -16,6 +17,7 @@ const Contact = () => {
       <ContactHero />
       <ContactInfo />
       <ContactForm />
+      <GoFundMeSection />
       <Footer />
     </>
   );

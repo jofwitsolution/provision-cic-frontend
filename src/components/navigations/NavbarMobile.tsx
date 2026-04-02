@@ -52,9 +52,11 @@ const NavContent = () => {
 };
 
 const NavbarMobile = () => {
+  const goFundMeLink = "https://gofund.me/2d01826c4";
+
   return (
     <Sheet>
-      <div className="md:hidden flex items-center gap-6">
+      <div className="lg:hidden flex items-center gap-6">
         <SheetTrigger className="">
           <Menu />
         </SheetTrigger>
@@ -80,9 +82,14 @@ const NavbarMobile = () => {
           </SheetClose>
         </div>
         <SheetFooter>
-          <Link to={"/contact"} className="w-full">
+          <Link
+            to={goFundMeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full"
+          >
             <Button className="w-full bg-transparent hover:bg-transparent border border-primary-100 hover:border-primary-200 text-primary-100 px-7.5 py-5 rounded-[50px]">
-              Contact
+              Donate
             </Button>
           </Link>
           <Link to={"/referrals"} className="w-full">

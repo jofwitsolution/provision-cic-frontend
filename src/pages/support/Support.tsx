@@ -3,6 +3,7 @@ import SupportList from "./SupportList";
 import Footer from "../../components/Footer";
 
 import SupportCommunities from "./SupportCommunities";
+import GoFundMeSection from "@/components/GoFundMeSection";
 import JoinProvision from "@/components/JoinProvision";
 import Navbar from "@/components/navigations/Navbar";
 import Meta from "@/components/shared/Meta";
@@ -18,6 +19,7 @@ const Support = () => {
       <SupportHero />
       <SupportList />
       <SupportCommunities />
+      <GoFundMeSection />
       <JoinProvision />
       <Footer />
     </>

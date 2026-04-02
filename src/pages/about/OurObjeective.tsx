@@ -43,7 +43,7 @@ const objectiveAccent = {
 
 const OurObjeective = () => {
   return (
-    <section className="relative overflow-hiddenbg-[radial-gradient(circle_at_top,rgba(147,71,19,0.08),transparent_60%)] py-16 font-['DM Sans',sans-serif] md:py-24">
+    <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,rgba(147,71,19,0.08),transparent_60%)] py-16 font-['DM Sans',sans-serif] md:py-24">
       <div className="pointer-events-none absolute -left-20 top-10 h-48 w-48 rounded-full bg-[#f6e4d5]/70 blur-3xl" />
       <div className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-[#f2d9c2]/60 blur-3xl" />
 

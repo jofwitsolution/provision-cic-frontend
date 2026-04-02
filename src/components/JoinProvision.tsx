@@ -1,3 +1,4 @@
+import { goFundMeLink } from "@/lib/routes";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -68,6 +69,15 @@ const JoinProvision = () => {
                 Make a Referral
               </motion.button>
             </Link>
+            <a href={goFundMeLink} target="_blank" rel="noopener noreferrer">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="cursor-pointer rounded-2xl border border-primary-100 bg-white px-6 py-2.5 font-semibold text-primary-100 shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition hover:shadow-[0_16px_32px_rgba(147,71,19,0.15)] md:px-8 md:py-3.5 md:text-lg"
+              >
+                Support on GoFundMe
+              </motion.button>
+            </a>
           </div>
         </motion.div>
       </motion.div>
