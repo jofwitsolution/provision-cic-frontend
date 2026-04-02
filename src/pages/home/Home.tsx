@@ -6,6 +6,7 @@ import WhyChooseUs from "./WhyChooseUs";
 import WhatweDo from "./Whatwedo.tsx";
 import WhatAreWe from "./Whatarewe";
 import Whereweoperate from "./Whereweoperate.tsx";
+import GoFundMeSection from "@/components/GoFundMeSection";
 import JoinProvision from "@/components/JoinProvision.tsx";
 import Meta from "@/components/shared/Meta";
 
@@ -23,6 +24,7 @@ const Home = () => {
       <Whereweoperate />
       <WhyChooseUs />
       <LatestEvents />
+      <GoFundMeSection />
       <JoinProvision />
       <Footer />
     </>
