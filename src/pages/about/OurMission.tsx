@@ -20,10 +20,9 @@ const OurMission = () => {
                 Our Mission
               </h2>
               <p className="text-[13px] leading-[30px] lg:text-[20px]">
-                To provide compassionate, person-centred support that empowers
-                individuals to live independently, confidently, and with
-                dignity, while fostering meaningful connections within their
-                communities.
+                To provide person-centred support that helps people live
+                independently, safely and with dignity, and to build the
+                connections that make that independence last.
               </p>
             </div>
           </div>
@@ -38,10 +37,8 @@ const OurMission = () => {
                 Our Vision
               </h2>
               <p className="text-[13px] leading-[30px] lg:text-[20px]">
-                To create inclusive communities where everyone has the
-                opportunity to thrive, feel valued, and achieve their full
-                potential through accessible, high-quality support
-                services.{" "}
+                A Coventry where everyone has a secure home, the support they
+                need to keep it, and a genuine route to living independently.
               </p>
             </div>
           </div>

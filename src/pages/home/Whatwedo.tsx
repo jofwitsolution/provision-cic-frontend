@@ -10,21 +10,21 @@ const Whatwedo = () => {
     {
       title: "Our Accommodation",
       description:
-        "We provide outstanding guest experiences with well-maintained properties, attentive support, and local insight.",
+        "Well-maintained shared homes with private bedrooms and communal kitchens, bathrooms and living space. Properties are kept to a proper standard and matched to the person's needs, routines and goals. Shared living keeps costs manageable and, for many people, provides the everyday contact that makes a house feel like somewhere they belong.",
       image: frame11,
       link: "/accommodation",
     },
     {
       title: "Support Service",
       description:
-        "We help individuals maintain tenancy and prepare for self-sufficient living with tailored, inclusive support.",
+        "Practical, person-centred support to sustain a tenancy and build toward self-sufficient living. Budgeting, household routines, appointments, benefits, and the day-to-day skills that independence depends on. Support is planned with the person, reviewed regularly, and reduced deliberately as confidence grows.",
       image: frame12,
       link: "/support",
     },
     {
       title: "Communities",
       description:
-        "Our community development is guided by integrity and transparency, creating lasting, positive change.",
+        "We work with local partners, neighbours and services across Coventry so that the people we support are part of the area they live in. Our community work is guided by integrity and transparency, and aimed at change that holds after we step back.",
       image: frame13,
       link: "/support",
     },

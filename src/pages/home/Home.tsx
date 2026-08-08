@@ -15,7 +15,7 @@ const Home = () => {
     <>
       <Meta
         title="Home - ProVision Support Services CIC"
-        description="Welcome to ProVision Support Services CIC, your trusted partner in accommodation and support services. We are dedicated to providing exceptional solutions that empower individuals and communities. Explore our range of services and discover how we can assist you in finding the perfect property solution."
+        description="Welcome to ProVision Support Services CIC, your trusted partner in accommodation and support services. We are dedicated to providing exceptional solutions that empower individuals and communities."
       />
       <Navbar />
       <WelcometoProvision />
