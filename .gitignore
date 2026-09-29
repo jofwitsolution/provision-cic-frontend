@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Migration baseline artifacts (large, local only; see implementation-plan/baseline/README.md)
+implementation-plan/baseline/screenshots/
+implementation-plan/baseline/lighthouse/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.vercel

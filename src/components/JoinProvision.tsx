@@ -1,6 +1,8 @@
+"use client";
+
 import { goFundMeLink } from "@/lib/routes";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const JoinProvision = () => {
   return (
@@ -44,14 +46,14 @@ const JoinProvision = () => {
 
           {/* Subheading */}
           <p className="mx-auto max-w-175 text-sm leading-8 text-[#2e2a28]/85 md:text-lg">
-            Experience supported living that's about more than just a place—it's
+            Experience supported living that&apos;s about more than just a place—it&apos;s
             about community, meaningful support, and your journey to
             independence. Welcome home!
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap justify-center gap-3 pt-4">
-            <Link to="/contact">
+            <Link href="/contact">
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -60,7 +62,7 @@ const JoinProvision = () => {
                 Get in Touch
               </motion.button>
             </Link>
-            <Link to="/referrals">
+            <Link href="/referrals">
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}

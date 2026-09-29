@@ -1,5 +1,8 @@
+"use client";
+
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import companylogo from "../assets/primary-logo.png";
 import linkedin from "../assets/icons/mdi_linkedin.png";
 import twitter from "../assets/icons/prime_twitter.png";
@@ -7,11 +10,20 @@ import instagram from "../assets/icons/mdi_instagram.png";
 
 const socialMediaLinks = [
   {
+    label: "LinkedIn",
     icon: linkedin,
     href: "https://www.linkedin.com/company/provision-support-services-cic/",
   },
-  { icon: twitter, href: "https://twitter.com/ProVisionCIC" },
-  { icon: instagram, href: "https://www.instagram.com/provisioncic/" },
+  {
+    label: "X (Twitter)",
+    icon: twitter,
+    href: "https://twitter.com/ProVisionCIC",
+  },
+  {
+    label: "Instagram",
+    icon: instagram,
+    href: "https://www.instagram.com/provisioncic/",
+  },
 ];
 
 const Footer = () => {
@@ -47,7 +59,7 @@ const Footer = () => {
           {/* Brand Section */}
           <motion.div variants={item} className="space-y-4">
             <div>
-              <img
+              <Image
                 src={companylogo}
                 alt="ProVision CIC"
                 className="h-12 w-auto"
@@ -64,9 +76,10 @@ const Footer = () => {
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.95 }}
                   href={link.href}
+                  aria-label={link.label}
                   className="rounded-lg bg-primary-100 p-2 shadow-[0_8px_16px_rgba(147,71,19,0.15)] transition"
                 >
-                  <img src={link.icon} alt="" className="h-5 w-5" />
+                  <Image src={link.icon} alt="" className="h-5 w-5" />
                 </motion.a>
               ))}
             </div>
@@ -84,7 +97,7 @@ const Footer = () => {
               ].map((link, index) => (
                 <li key={link.href + index}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
                   >
                     {link.label} →
@@ -120,7 +133,7 @@ const Footer = () => {
                     </a>
                   ) : (
                     <Link
-                      to={link.href}
+                      href={link.href}
                       className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
                     >
                       {link.label} →

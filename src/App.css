@@ -7,7 +7,7 @@
   border: 1px solid rgba(147, 71, 19, 0.2);
   border-radius: 999px;
   color: #5a2d0f;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -16,7 +16,7 @@
 }
 
 .hero-title {
-  font-family: "Mogra", system-ui;
+  font-family: var(--font-mogra), system-ui;
   font-size: clamp(2rem, 4vw, 3.4rem);
   font-weight: 400;
   color: #4a2a12;
@@ -24,7 +24,7 @@
 }
 
 .hero-copy {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: clamp(1rem, 2.2vw, 1.35rem);
   line-height: 1.7;
   max-width: 720px;
@@ -38,7 +38,7 @@
   box-shadow: 0 18px 40px rgba(147, 71, 19, 0.25);
   color: #fff;
   cursor: pointer;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 600;
   padding: 0.85rem 2.5rem;

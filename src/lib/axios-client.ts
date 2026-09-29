@@ -2,7 +2,8 @@ import axios from "axios";
 import { toast } from "sonner";
 
 const options = {
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  // Same-origin; forwarded to the backend by the rewrite in next.config.ts
+  baseURL: "/api/v1",
 };
 
 const API = axios.create(options);

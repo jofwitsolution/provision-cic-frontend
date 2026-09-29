@@ -1,17 +1,26 @@
+"use client";
+
+import Image from "next/image";
 import primaryLogo from "@/assets/primary-logo.png";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { goFundMeLink, navbarRoutes } from "@/lib/routes";
 import NavbarMobile from "./NavbarMobile";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
-  const pathname = useLocation().pathname;
+  const pathname = usePathname();
 
   return (
     <nav className="sticky left-0 top-0 z-50 w-full bg-background border-b">
       <div className="max-width flex h-20 items-center justify-between">
-        <Link to="/" className="flex gap-2 items-center">
-          <img src={primaryLogo} alt="provision" className="w-25" />
+        <Link href="/" className="flex gap-2 items-center">
+          <Image
+            src={primaryLogo}
+            alt="ProVision Support Services CIC"
+            className="w-25"
+            preload
+          />
         </Link>
 
         <div className="flex items-center gap-8 font-medium text-foreground max-lg:hidden">
@@ -22,7 +31,7 @@ const Navbar = () => {
 
             return (
               <Link
-                to={item.route}
+                href={item.route}
                 key={item.label}
                 className={`${isActive ? "font-semibold text-primary" : ""} transition-all hover:text-primary`}
                 target={item.route.startsWith("http") ? "_blank" : "_self"}
@@ -34,7 +43,7 @@ const Navbar = () => {
         </div>
         <div className="max-md:hidden flex gap-4 items-center">
           <Link
-            to={goFundMeLink}
+            href={goFundMeLink}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full"
@@ -43,7 +52,7 @@ const Navbar = () => {
               Donate
             </Button>
           </Link>
-          <Link to={"/referrals"} className="w-full">
+          <Link href={"/referrals"} className="w-full">
             <Button className="w-full bg-primary-100 hover:bg-primary-200 text-background px-7.5 py-5 rounded-[50px] cursor-pointer">
               Refer Someone
             </Button>

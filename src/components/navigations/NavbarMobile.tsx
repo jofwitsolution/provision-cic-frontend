@@ -1,3 +1,6 @@
+"use client";
+
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,11 +15,12 @@ import {
 import { cn } from "@/lib/utils";
 import { navbarRoutes } from "@/lib/routes";
 import { Menu } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import primaryLogo from "@/assets/primary-logo.png";
 
 const NavContent = () => {
-  const pathname = useLocation().pathname;
+  const pathname = usePathname();
 
   return (
     <section className="flex flex-col gap-6 ps-4">
@@ -30,7 +34,7 @@ const NavContent = () => {
             <SheetClose asChild>
               <Link
                 key={item.label}
-                to={item.route}
+                href={item.route}
                 className={cn(
                   isActive ? "font-semibold" : "",
                   "leading-[1.41rem] text-foreground"
@@ -57,7 +61,7 @@ const NavbarMobile = () => {
   return (
     <Sheet>
       <div className="lg:hidden flex items-center gap-6">
-        <SheetTrigger className="">
+        <SheetTrigger className="" aria-label="Open menu">
           <Menu />
         </SheetTrigger>
       </div>
@@ -71,8 +75,12 @@ const NavbarMobile = () => {
             description goes here
           </SheetDescription>
           <div className="flex items-center justify-between">
-            <Link to={"/"}>
-              <img src={primaryLogo} alt="provision" className="w-25" />
+            <Link href={"/"}>
+              <Image
+                src={primaryLogo}
+                alt="ProVision Support Services CIC"
+                className="w-25"
+              />
             </Link>
           </div>
         </SheetHeader>
@@ -83,7 +91,7 @@ const NavbarMobile = () => {
         </div>
         <SheetFooter>
           <Link
-            to={goFundMeLink}
+            href={goFundMeLink}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full"
@@ -92,7 +100,7 @@ const NavbarMobile = () => {
               Donate
             </Button>
           </Link>
-          <Link to={"/referrals"} className="w-full">
+          <Link href={"/referrals"} className="w-full">
             <Button className="w-full bg-primary-100 hover:bg-primary-200 text-background px-7.5 py-5 rounded-[50px] cursor-pointer">
               Refer Someone
             </Button>

@@ -1,5 +1,7 @@
+"use client";
+
 import { motion, type Variants } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import Button from "../Button";
 
 const item: Variants = {
@@ -41,9 +43,10 @@ const EventCard = ({ event }: { event: EventType }) => {
       </p>
 
       <div className="flex">
-        <NavLink to={`/events/${event.slug}`}>
+        <Link href={`/events/${event.slug}`}>
           <Button text="Read More" />
-        </NavLink>
+          <span className="sr-only">: {event.title}</span>
+        </Link>
       </div>
     </motion.article>
   );

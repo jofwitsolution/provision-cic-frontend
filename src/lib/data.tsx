@@ -3,7 +3,7 @@ import { eventImages } from "@/constant/images";
 export const recentNews = [
   {
     id: 1,
-    title: "2025 Chrismas Celebration",
+    title: "2025 Christmas Celebration",
     slug: "christmas-celebration-2025",
     date: "2025-12-25",
     excerpt:

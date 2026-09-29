@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, type LucideIcon } from "lucide-react";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";

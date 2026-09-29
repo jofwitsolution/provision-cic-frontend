@@ -5,7 +5,7 @@ type EventType = {
   date: string;
   excerpt: string;
   content: string;
-  otherImages?: string[];
+  otherImages?: import("next/image").StaticImageData[];
   category: string;
   mediaNote?: string;
   videos?: string[];
