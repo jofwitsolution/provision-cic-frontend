@@ -33,3 +33,8 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .vercel
+
+# Environment files (keep .env.example tracked)
+.env
+.env.*
+!.env.example
