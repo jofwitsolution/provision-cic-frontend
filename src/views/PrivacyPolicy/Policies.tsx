@@ -8,7 +8,18 @@ import {
   FileText,
   AlertCircle,
   Share2,
+  Cookie,
+  type LucideIcon,
 } from "lucide-react";
+
+type PolicySection = {
+  id?: string;
+  title: string;
+  icon: LucideIcon;
+  content?: string;
+  bullets?: string[];
+  subsections?: { label: string; text: string; bullets?: string[] }[];
+};
 
 const Policies = () => {
   const containerVariants: Variants = {
@@ -31,7 +42,7 @@ const Policies = () => {
     },
   };
 
-  const sections = [
+  const sections: PolicySection[] = [
     {
       title: "Data Collection and Storage",
       icon: Lock,
@@ -88,6 +99,31 @@ const Policies = () => {
       icon: CheckCircle,
       content:
         "We will not share your information with any third party without your explicit consent, except where required by law. Both ProVision Support Service and our contractual partners have individual complaints policies, and you may request further details.",
+    },
+    {
+      id: "cookies",
+      title: "Cookies",
+      icon: Cookie,
+      content:
+        "Cookies are small text files stored on your device. We only use cookies that are not strictly necessary if you agree to them. We ask for your choice on your first visit and remember it for 12 months. You can change your choice at any time using \"Cookie settings\" at the bottom of every page.",
+      subsections: [
+        {
+          label: "Strictly necessary",
+          text: "The provision_consent cookie remembers your cookie choices for 12 months. It is needed for the website to work, so it cannot be turned off.",
+        },
+        {
+          label: "Live chat (functional)",
+          text: "If you allow live chat, we load the chat window provided by Tawk.to. It sets cookies (such as twk_uuid and TawkConnectionTime) so your conversation continues between pages. Messages you send through the chat are processed by Tawk.to to deliver them to our team. If you do not allow live chat, the chat window is not loaded.",
+        },
+        {
+          label: "Analytics",
+          text: "If you allow analytics, tools loaded through Google Tag Manager (provided by Google) may set cookies (such as _ga) to count visits and show which pages are used, so we can improve the website. If you do not allow analytics, no analytics cookies are set. Google may still receive basic information without cookies, such as that a page was viewed.",
+        },
+        {
+          label: "Marketing",
+          text: "If you allow marketing, tools loaded through Google Tag Manager may set cookies (such as _gcl_au) to measure our campaigns and show relevant content about our services on other websites. If you do not allow marketing, no marketing cookies are set.",
+        },
+      ],
     },
   ];
 
@@ -146,8 +182,9 @@ const Policies = () => {
             return (
               <motion.div
                 key={index}
+                id={section.id}
                 variants={itemVariants}
-                className="bg-white rounded-2xl border-2 border-[#edd8c1] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden hover:shadow-[0_15px_40px_rgba(147,71,19,0.15)] transition-all duration-300"
+                className="scroll-mt-24 bg-white rounded-2xl border-2 border-[#edd8c1] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden hover:shadow-[0_15px_40px_rgba(147,71,19,0.15)] transition-all duration-300"
               >
                 <div className="p-6 md:p-8">
                   {/* Section Header */}
@@ -253,7 +290,7 @@ const Policies = () => {
         >
           <p>
             This Privacy Policy is effective as of January 2024 and was last
-            updated on February 18, 2026.
+            updated on September 29, 2026.
           </p>
         </motion.div>
       </div>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Mogra } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
+import ConsentBanner from "@/components/consent/ConsentBanner";
 import TawkTo from "@/components/TawkTo";
 import JsonLd from "@/components/shared/JsonLd";
 import {
@@ -11,6 +13,7 @@ import {
   siteName,
   siteUrl,
 } from "@/lib/seo";
+import { consentModeScript } from "@/lib/consent";
 import "../index.css";
 import "../App.css";
 
@@ -32,6 +35,9 @@ const dmSans = DM_Sans({
   axes: ["opsz"],
   variable: "--font-dm-sans",
 });
+
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+const gscVerification = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -71,6 +77,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  ...(gscVerification && { verification: { google: gscVerification } }),
 };
 
 const tawkPropertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
@@ -84,12 +91,21 @@ export default function RootLayout({
       lang="en-GB"
       className={`${bebasNeue.variable} ${mogra.variable} ${dmSans.variable}`}
     >
+      <head>
+        {/* Consent Mode defaults must be set before Tag Manager loads */}
+        <script
+          id="consent-mode"
+          dangerouslySetInnerHTML={{ __html: consentModeScript() }}
+        />
+      </head>
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body>
         <JsonLd data={organizationJsonLd} />
+        <ConsentBanner />
         {children}
         <Toaster position="top-right" />
 
-        {/* Tawk.to Live Chat Widget */}
+        {/* Tawk.to Live Chat Widget (loads once live chat is allowed) */}
         {tawkPropertyId && tawkWidgetId && (
           <TawkTo propertyId={tawkPropertyId} widgetId={tawkWidgetId} />
         )}

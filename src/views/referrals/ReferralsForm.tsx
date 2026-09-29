@@ -19,6 +19,7 @@ import {
   RadioGroup,
 } from "@/components/shared/formik";
 import API from "@/lib/axios-client";
+import { pushDataLayer } from "@/lib/gtm";
 
 const ReferralsForm = () => {
   const {
@@ -47,6 +48,7 @@ const ReferralsForm = () => {
       // Mock submission for now
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       await API.post("/email/refer-someone", data);
+      pushDataLayer({ event: "form_submit", form_name: "referral" });
       reset();
       setSuccessMessage(true);
       toast.success("Your referral has been submitted successfully!");

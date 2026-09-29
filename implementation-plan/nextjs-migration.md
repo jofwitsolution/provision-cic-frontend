@@ -169,37 +169,47 @@ Results (2026-09-24):
 ## Phase 3 — Consent, Tag Manager & Search Console
 
 ### Cookie consent banner
-- [ ] `ConsentBanner` client component styled with the existing design tokens and button components; shows on the first visit only
-- [ ] Options: **Accept all**, **Reject non-essential**, **Manage preferences** (analytics / marketing toggles)
-- [ ] Store the choice in a first-party cookie (`provision_consent`, 12 months) with a version number, so changes to the policy can prompt users again
-- [ ] "Cookie settings" link in the Footer to reopen the preferences
-- [ ] Accessible: keyboard navigable, focus managed, appropriate ARIA; does not block reading the page
-- [ ] Update `/privacy-policy` with a cookies section (necessary, analytics, marketing; Tawk.to as functional). Content to be reviewed by ProVision
-- [ ] Decide how Tawk.to is classed (functional vs. requires consent) and gate it if required
+- [x] `ConsentBanner` client component styled with the existing design tokens and button components; shows on the first visit only
+- [x] Options: **Accept all**, **Reject non-essential**, **Manage preferences** (analytics / marketing toggles)
+- [x] Store the choice in a first-party cookie (`provision_consent`, 12 months) with a version number, so changes to the policy can prompt users again
+- [x] "Cookie settings" link in the Footer to reopen the preferences
+- [x] Accessible: keyboard navigable, focus managed, appropriate ARIA; does not block reading the page
+- [x] Update `/privacy-policy` with a cookies section (necessary, analytics, marketing; Tawk.to as functional). Content to be reviewed by ProVision
+- [x] Decide how Tawk.to is classed (functional vs. requires consent) and gate it if required (gated behind a "Live chat" category; ProVision to confirm)
 
 ### Google Consent Mode v2
-- [ ] Inline script in `<head>`, before GTM, setting defaults: `ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage` = `denied`; `functionality_storage`, `security_storage` = `granted`; `wait_for_update: 500`
-- [ ] On load, apply the stored choice with `gtag('consent', 'update', …)`
-- [ ] On banner choice, run `gtag('consent', 'update', …)` and push a `consent_update` event to `dataLayer`
+- [x] Inline script in `<head>`, before GTM, setting defaults: `ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage` = `denied`; `security_storage` = `granted`; `wait_for_update: 500`. (`functionality_storage` now starts `denied` and follows the Live chat choice)
+- [x] On load, apply the stored choice with `gtag('consent', 'update', …)`
+- [x] On banner choice, run `gtag('consent', 'update', …)` and push a `consent_update` event to `dataLayer`
 
 ### Google Tag Manager
-- [ ] Add `@next/third-parties`; render `<GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />` in the root layout, only when the ID is set
-- [ ] Push `form_submit` events (`form_name`: `contact` | `referral`) to `dataLayer` after a successful submission
-- [ ] Document for the container: use the built-in "History Change" trigger for page views between pages; tags must respect Consent Mode
+- [x] Add `@next/third-parties`; render `<GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />` in the root layout, only when the ID is set
+- [x] Push `form_submit` events (`form_name`: `contact` | `referral`) to `dataLayer` after a successful submission
+- [x] Document for the container: use the built-in "History Change" trigger for page views between pages; tags must respect Consent Mode
 - [ ] **Blocked:** set `NEXT_PUBLIC_GTM_ID` in Vercel once the container ID is available
 
 ### Google Search Console
 - [ ] Add a Domain property for `provisionsupportservice.co.uk` and verify by DNS TXT record at the domain registrar (requires registrar access)
-- [ ] Fallback: support `NEXT_PUBLIC_GSC_VERIFICATION` in `metadata.verification.google`
+- [x] Fallback: support `NEXT_PUBLIC_GSC_VERIFICATION` in `metadata.verification.google`
 - [ ] After production deploy: submit `https://www.provisionsupportservice.co.uk/sitemap.xml`
 - [ ] Request indexing for the home page and key service pages using URL Inspection
 
 ### Phase 3 verification
 - [ ] With no choice made: GTM loads with consent denied (checked in Tag Assistant); no analytics or marketing cookies set
-- [ ] Accept / reject / manage each update consent correctly and persist across reloads and pages
-- [ ] The Footer "Cookie settings" link reopens the banner
+- [x] Accept / reject / manage each update consent correctly and persist across reloads and pages
+- [x] The Footer "Cookie settings" link reopens the banner
 - [ ] `form_submit` events appear in the Tag Assistant preview
-- [ ] Banner matches the site design on desktop and mobile
+- [x] Banner matches the site design on desktop and mobile
+
+Results (2026-09-29):
+- Code: `src/lib/consent.ts` (cookie, Consent Mode mapping, inline `<head>` script), `src/lib/gtm.ts` (`pushDataLayer`), `src/components/consent/` (`ConsentBanner`, `useConsent`). Container notes for whoever sets up GTM: [gtm-container.md](gtm-container.md)
+- Banner categories: Strictly necessary (always on), **Live chat** (Tawk.to, `functionality_storage`), Analytics (`analytics_storage`), Marketing (`ad_*`). Accept all and Reject non-essential are equally prominent. Cookie: `provision_consent`, JSON `{ v, ts, functional, analytics, marketing }`, 12 months, `SameSite=Lax`, `Secure` on HTTPS. Bump `CONSENT_VERSION` to ask everyone again
+- **Tawk.to is gated:** it only loads once Live chat is allowed, because it sets cookies as soon as it loads (ICO guidance treats that as needing consent). Visitors who reject won't see the chat window. If withdrawn, the widget is hidden. **ProVision to confirm** this classification
+- Withdrawing analytics or marketing also deletes existing Google cookies (`_ga*`, `_gid`, `_gcl*`), since tags can't remove them
+- The banner is non-modal, renders only on the client (static HTML unchanged), is first in the tab order, and only moves focus when the visitor opens it (Manage preferences, or Footer "Cookie settings"); Escape closes it when a choice already exists, and focus goes back to the trigger. Footer gained a "Cookie settings" item; the only other visual change is the new Cookies section on `/privacy-policy` (anchor `#cookies`) using the existing section layout. **ProVision to review the wording**
+- Checked in Chrome (Playwright, desktop 1440 and mobile 390, test build with `NEXT_PUBLIC_GTM_ID=GTM-TEST123` and a test verification token), all passing: banner on first visit only; no cookies and no Tawk request before a choice; GTM requested with `consent default` queued before `gtm.js`; Reject / Save preferences / Accept all write the cookie, update consent and push `consent_update`; the stored choice is applied from `<head>` on reload and on other pages; Footer link reopens preferences; old cookie version prompts again; `_ga` cleared on withdrawal; `google-site-verification` meta present; no console errors
+- `next build`: all routes still static; `tsc` clean; `eslint` 0 errors
+- Still to do with a real container / public URL: Tag Assistant checks, `form_submit` in preview (not submitted locally to avoid sending real emails), Search Console DNS verification, sitemap submission
 
 ## Phase 4 — Release
 
@@ -214,6 +224,6 @@ Results (2026-09-24):
 
 - [ ] GTM container ID (to be supplied)
 - [ ] DNS registrar access for Search Console verification
-- [ ] Tawk.to consent classification
+- [ ] Tawk.to consent classification (currently gated behind the Live chat category; confirm)
 - [ ] Business details for structured data: postal address, phone, email, social profile URLs (confirm the ones on the site are current)
   - The `Organization` JSON-LD uses the Contact page details (32 Hazelville Road, Birmingham B28 9QF; info@ and referrals@ addresses; +44 7828 887031 and +44 7581 467406). The FAQ answers say **31** Hazelville Road, and the site describes the service as Coventry-based. Confirm the correct address before release

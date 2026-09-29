@@ -7,6 +7,7 @@ import companylogo from "../assets/primary-logo.png";
 import linkedin from "../assets/icons/mdi_linkedin.png";
 import twitter from "../assets/icons/prime_twitter.png";
 import instagram from "../assets/icons/mdi_instagram.png";
+import { openConsentPreferences } from "@/lib/consent";
 
 const socialMediaLinks = [
   {
@@ -141,6 +142,15 @@ const Footer = () => {
                   )}
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openConsentPreferences}
+                  className="text-[#5a2d0f] transition hover:text-primary-100 hover:translate-x-1 inline-block"
+                >
+                  Cookie settings →
+                </button>
+              </li>
             </ul>
           </motion.div>
 

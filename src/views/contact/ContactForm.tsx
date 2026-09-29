@@ -12,6 +12,7 @@ import {
 } from "@/lib/validations/contact";
 import { FormInput, FormTextarea } from "@/components/shared/formik";
 import API from "@/lib/axios-client";
+import { pushDataLayer } from "@/lib/gtm";
 
 const ContactForm = () => {
   const {
@@ -31,6 +32,7 @@ const ContactForm = () => {
       // Mock submission
       // await new Promise((resolve) => setTimeout(resolve, 1500));
       await API.post("/email/contact-us", data);
+      pushDataLayer({ event: "form_submit", form_name: "contact" });
       reset();
       setSuccessMessage(true);
       toast.success("Your message has been sent successfully!");
