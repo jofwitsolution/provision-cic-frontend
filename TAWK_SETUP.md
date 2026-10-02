@@ -23,9 +23,11 @@
 Open your `.env` file and replace the placeholder values:
 
 ```env
-VITE_TAWK_PROPERTY_ID = your_actual_property_id
-VITE_TAWK_WIDGET_ID = your_actual_widget_id
+NEXT_PUBLIC_TAWK_PROPERTY_ID=your_actual_property_id
+NEXT_PUBLIC_TAWK_WIDGET_ID=your_actual_widget_id
 ```
+
+On Vercel, set the same two variables for Production and Preview, then redeploy (they are read at build time).
 
 ### 4. Restart Your Development Server
 
@@ -35,13 +37,15 @@ After updating the `.env` file, restart your dev server:
 npm run dev
 ```
 
+Tawk.to blocks `localhost`, so the widget will not appear locally. Check it on a Vercel preview or production (the domain may need adding in the Tawk.to dashboard).
+
 ## Features
 
 The integration includes:
 
-- ✅ Automatic widget loading on all pages
+- ✅ Widget available on all pages, loaded after the page itself (`next/script`, `lazyOnload`)
 - ✅ TypeScript support with type definitions
-- ✅ Proper cleanup on component unmount
+- ✅ Consent-gated: loads only once the visitor allows **Live chat** in the cookie banner, and is hidden if that is withdrawn
 - ✅ Conditional rendering (only loads if credentials are set)
 - ✅ No duplicate widget instances
 

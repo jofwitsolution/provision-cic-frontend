@@ -213,7 +213,7 @@ Results (2026-09-29):
 
 ## Phase 4 — Release
 
-- [ ] Update `README.md` (scripts, env vars, project structure); update or remove `TAWK_SETUP.md` for the new env var names
+- [x] Update `README.md` (scripts, env vars, project structure); update or remove `TAWK_SETUP.md` for the new env var names
 - [ ] Open a PR for each phase (1: framework, 2: SEO, 3: consent/tracking), each with a Vercel preview
 - [ ] ProVision reviews the preview for design parity and content
 - [ ] Merge and deploy to production
@@ -226,4 +226,4 @@ Results (2026-09-29):
 - [ ] DNS registrar access for Search Console verification
 - [ ] Tawk.to consent classification (currently gated behind the Live chat category; confirm)
 - [ ] Business details for structured data: postal address, phone, email, social profile URLs (confirm the ones on the site are current)
-  - The `Organization` JSON-LD uses the Contact page details (32 Hazelville Road, Birmingham B28 9QF; info@ and referrals@ addresses; +44 7828 887031 and +44 7581 467406). The FAQ answers say **31** Hazelville Road, and the site describes the service as Coventry-based. Confirm the correct address before release
+  - Address confirmed (2026-10-02): **80 Hollis Road, Coventry, CV3 1AH**. The Contact page, FAQ answers and `Organization` JSON-LD all use it. Still to confirm: info@ and referrals@ addresses, +44 7828 887031 and +44 7581 467406, and the social profile URLs

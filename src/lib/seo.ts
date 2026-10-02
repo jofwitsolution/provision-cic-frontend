@@ -71,9 +71,9 @@ export const organizationJsonLd = {
   telephone: "+44 7828 887031",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "32 Hazelville Road",
-    addressLocality: "Birmingham",
-    postalCode: "B28 9QF",
+    streetAddress: "80 Hollis Road",
+    addressLocality: "Coventry",
+    postalCode: "CV3 1AH",
     addressCountry: "GB",
   },
   areaServed: { "@type": "City", name: "Coventry" },
