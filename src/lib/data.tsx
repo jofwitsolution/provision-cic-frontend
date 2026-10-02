@@ -97,7 +97,7 @@ export const faqs = [
   {
     question: "Where is ProVision Support Service located?",
     answer:
-      "ProVision Support Service is located at 31 Hazelville Road B28 9QF Birmingham, strategically situated to provide support and accommodations in various areas.",
+      "ProVision Support Service is located at 80 Hollis Road, Coventry, CV3 1AH, strategically situated to provide support and accommodations in various areas.",
   },
   {
     question: "What are the objectives of ProVision Support Service?",
@@ -184,6 +184,6 @@ export const faqs = [
     question:
       "How can I contact ProVision Support Service for inquiries or support?",
     answer:
-      "For any inquiries, you can contact our office at 31 Hazelville Road B28 9QF Birmingham. Our dedicated team is here to assist you.",
+      "For any inquiries, you can contact our office at 80 Hollis Road, Coventry, CV3 1AH. Our dedicated team is here to assist you.",
   },
 ];

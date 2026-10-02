@@ -37,9 +37,9 @@ const contactCards = [
     icon: Locationicon,
     text: (
       <>
-        32 Hazelville Road, B28 9QF
+        80 Hollis Road, CV3 1AH
         <br />
-        Birmingham
+        Coventry
       </>
     ),
   },
